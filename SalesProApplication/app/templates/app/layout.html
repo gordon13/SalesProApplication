@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Sales-Pro</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/simple-sidebar.css' %}" />
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+    {% include 'material/includes/material_css.html' %}
+    {% include 'material/includes/material_js.html' %}
+
+</head>
+
+<body>  
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'agents' %}">Agents</a></li>
+                <li><a href="{% url 'properties' %}">Properties</a></li>
+                <li><a href="{% url 'reminders' %}">Reminders</a></li>
+                <li><a href="{% url 'new' %}">Add New Sale</a></li>
+                <li><a href="{% url 'archive' %}">Archive</a></li>
+                <li><a href="{% url 'invoice' %}">Invoices Due</a></li>
+                <li><a href="{% url 'pipeline' %}">Toal Pipeline</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li>{% include 'app/loginpartial.html' %}</li>
+            </ul>
+            
+        </div>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img src="{% static 'app/images/sales-pro.png' %}" /><br />
+                    <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">show/hide</a><br />
+                    {% block content %} 
+                    {% endblock %}
+                    <hr/>
+                    <footer>
+                        <p>&copy; {{ year }} - Small Bird</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

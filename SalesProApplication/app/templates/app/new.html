@@ -1,0 +1,25 @@
+{% extends "app/layout.html" %}
+{% block content %}
+{% load material_form %} 
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+
+<style type="text/css">
+    .section h5 {
+        font-size: 1.2rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 3px solid black;
+    }
+</style>
+<form method="POST" class="viewform">{% csrf_token %}
+    {% form %}
+        {% part form.account_type add_group_class %}inline{% endpart %}
+        {% part form.account_mode add_group_class %}inline{% endpart %}
+        {% part form.deposit_type add_group_class %}inline{% endpart %}
+        {% part form.deposit_mode add_group_class %}inline{% endpart %}
+        {% part form.martial_status add_group_class %}inline{% endpart %}
+    {% endform %}
+    <button type="submit" name="_submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+{% endblock %}
