@@ -15,7 +15,7 @@ def home(request):
         'app/index.html',
         context_instance = RequestContext(request,
         {
-            'title':'Sales-Pro',
+            'title':'SalesPro',
             'year':datetime.now().year,
         })
     )
@@ -76,7 +76,6 @@ def archive(request):
         context_instance = RequestContext(request,
         {
             'title':'Archive',
-            'message':'Your application description page.',
             'year':datetime.now().year,
         })
     )
@@ -89,7 +88,6 @@ def invoice(request):
         context_instance = RequestContext(request,
         {
             'title':'Invoices Due',
-            'message':'Your application description page.',
             'year':datetime.now().year,
         })
     )
@@ -102,7 +100,6 @@ def pipeline(request):
         context_instance = RequestContext(request,
         {
             'title':'Total Pipeline',
-            'message':'Your application description page.',
             'year':datetime.now().year,
         })
     )

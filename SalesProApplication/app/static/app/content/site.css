@@ -1,9 +1,22 @@
 ﻿body {
     padding-bottom: 20px;
     font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+    background: #1972B0;
+    color: #fff;
 
 }
+#col-style {
+    height: 500px;
+    background: #fff;
+    border-radius: 7px;
+    margin-right: 5px;
+    color: #1972B0;
+    margin-left: 15px;
+}
 
+.form-header {
+    font-weight:bold;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

@@ -1,25 +1,251 @@
 {% extends "app/layout.html" %}
-{% block content %}
-{% load material_form %} 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
 
-<style type="text/css">
-    .section h5 {
-        font-size: 1.2rem;
-        padding-bottom: 0.2rem;
-        border-bottom: 3px solid black;
-    }
-</style>
-<form method="POST" class="viewform">{% csrf_token %}
-    {% form %}
-        {% part form.account_type add_group_class %}inline{% endpart %}
-        {% part form.account_mode add_group_class %}inline{% endpart %}
-        {% part form.deposit_type add_group_class %}inline{% endpart %}
-        {% part form.deposit_mode add_group_class %}inline{% endpart %}
-        {% part form.martial_status add_group_class %}inline{% endpart %}
-    {% endform %}
-    <button type="submit" name="_submit" class="btn btn-primary btn-lg">Submit</button>
-</form>
+{% block content %}
+
+<h2>{{ title }}</h2>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm" class="form-horizontal">
+            <h4 class="btn btn-info" data-toggle="collapse" data-target="#vendors">Enter Vendors</h4>
+            <br />
+            <form id="vendors" action="." class="collapse" method="post">
+                {% csrf_token %}
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Vendor 1</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="form-header">Vendor 2</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Vendor 1</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Vendor 3</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <br />
+                {% if form.errors %}
+                <p class="validation-summary-errors">Please check the details you have entered.</p>
+                {% endif %}
+            </form>
+            <h4 class="btn btn-info" data-toggle="collapse" data-target="#purchasers">Enter Purchasers</h4>
+            <br />
+            <form id="purchasers" action="." class="collapse" method="post">
+                {% csrf_token %}
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Purchaser 1</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Purchaser 1</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="form-header">Purchaser 2</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="form-header">Purchaser 3</h4>
+                    <div class="form-group">
+                        <label for="id_firstName">First name</label>
+                        <input type="text" value="{{ form.firstName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_lastName">Last name</label>
+                        <input type="text" value="{{ form.lastName }}" class="form-control" />
+                    </div> 
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="tel" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                </div>
+                <br />
+                {% if form.errors %}
+                <p class="validation-summary-errors">Please check the details you have entered.</p>
+                {% endif %}
+            </form>
+            <h4 class="btn btn-info" data-toggle="collapse" data-target="#sale">Enter Sale</h4>
+            <form id="sale" action="." class="collapse" method="post">
+                {% csrf_token %}
+                <div class="col-md-3">
+                    <h4 class="form-header">Address</h4>
+                    <div class="form-group">
+                        <label for="id_addressLine1">Address line 1</label>
+                        <input type="text" value="{{ form.addressLine1 }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_addressLine2">Address line 2</label>
+                        <input type="text" value="{{ form.addressLine2 }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_addressLine3">Address line 3</label>
+                        <input type="text" value="{{ form.addressLine3 }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_postcode">Postcode</label>
+                        <input type="text" value="{{ form.postcode }}" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="form-header">Agent Information</h4>
+                    <div class="form-group">
+                        <label for="id_companyName">Company name</label>
+                        <input type="text" value="{{ form.companyName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_contactName">Contact name</label>
+                        <input type="text" value="{{ form.contactName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="text" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email address</label>
+                        <input type="text" value="{{ form.email }}" class="form-control" />
+                    </div> 
+                </div>
+                <div class="col-md-3">
+                    <h4 class="form-header">Sale Information</h4>
+                    <div class="form-group">
+                        <label for="id_companyName">Company name</label>
+                        <input type="text" value="{{ form.companyName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_contactName">Contact name</label>
+                        <input type="text" value="{{ form.contactName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="text" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email address</label>
+                        <input type="text" value="{{ form.email }}" class="form-control" />
+                    </div> 
+                </div>
+                <div class="col-md-3">
+                    <h4 class="form-header">Sale Information</h4>
+                    <div class="form-group">
+                        <label for="id_companyName">Company name</label>
+                        <input type="text" value="{{ form.companyName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_contactName">Contact name</label>
+                        <input type="text" value="{{ form.contactName }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_telephone">Telephone number</label>
+                        <input type="text" value="{{ form.telephone }}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email address</label>
+                        <input type="text" value="{{ form.email }}" class="form-control" />
+                    </div> 
+                </div>
+                {% if form.errors %}
+                <p class="validation-summary-errors">Please check the details you have entered.</p>
+                {% endif %}
+            </form>
+            
+            <div class="form-group">
+                <div class="col-md-12">
+                    <hr />
+                    <input type="hidden" name="next" value="/" />
+                    <button type="submit" class="btn btn-info">Add sale</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+    {% load staticfiles %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
 
 {% endblock %}
