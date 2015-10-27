@@ -72,11 +72,12 @@
     <Content Include="app\static\app\fonts\Stilu\__MACOSX\._stilu.png" />
     <Content Include="app\static\app\images\sales-pro.png" />
     <Content Include="app\templates\app\agents.html" />
+    <Content Include="app\templates\app\properties.html" />
     <Content Include="app\templates\app\invoice.html" />
     <Content Include="app\templates\app\pipeline.html" />
     <Content Include="app\templates\app\reminders.html" />
     <Content Include="app\templates\app\new.html" />
-    <Content Include="app\templates\app\properties.html" />
+    <Content Include="app\templates\app\property.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

@@ -31,8 +31,20 @@ def agents(request):
             'year':datetime.now().year,
         })
     )
-def properties(request):
+def property(request):
     """Renders the properties page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/property.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Property',
+            'year':datetime.now().year,
+        })
+    )
+def properties(request):
+    """Renders the reminders page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
