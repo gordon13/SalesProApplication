@@ -21,7 +21,6 @@ urlpatterns = patterns('',
     url(r'^archive$', 'app.views.archive', name='archive'),
     url(r'^invoice$', 'app.views.invoice', name='invoice'),
     url(r'^pipeline$', 'app.views.pipeline', name='pipeline'),
-    url(r'^contact', 'app.views.contact', name='contact'),
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {
