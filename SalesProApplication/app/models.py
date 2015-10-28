@@ -4,21 +4,6 @@ Definition of models.
 
 from django.db import models
 
-class Purchaser(models.Model):
-    first_name_p_1 = models.CharField(max_length=20)
-    last_name_p_1 = models.CharField(max_length=20)
-    telephone_p_1 = models.IntegerField(max_length=11)
-    first_name_p_2 = models.CharField(max_length=20)
-    last_name_p_2 = models.CharField(max_length=20)
-    telephone_p_2 = models.IntegerField(max_length=11)
-    first_name_p_3 = models.CharField(max_length=20)
-    last_name_p_3 = models.CharField(max_length=20)
-    telephone_p_3 = models.IntegerField(max_length=11)
-    first_name_p_4 = models.CharField(max_length=20)
-    last_name_p_4 = models.CharField(max_length=20)
-    telephone_p_4 = models.IntegerField(max_length=11)
-    address_line_1 = models.CharField(max_length=20)
-
 class Vendor(models.Model):
     first_name_v_1 = models.CharField(max_length=20)
     last_name_v_1 = models.CharField(max_length=20)
@@ -34,6 +19,21 @@ class Vendor(models.Model):
     telephone_v_4 = models.IntegerField(max_length=11)
     address_line_1 = models.CharField(max_length=20)
 
+class Purchaser(models.Model):
+    first_name_p_1 = models.CharField(max_length=20)
+    last_name_p_1 = models.CharField(max_length=20)
+    telephone_p_1 = models.IntegerField(max_length=11)
+    first_name_p_2 = models.CharField(max_length=20)
+    last_name_p_2 = models.CharField(max_length=20)
+    telephone_p_2 = models.IntegerField(max_length=11)
+    first_name_p_3 = models.CharField(max_length=20)
+    last_name_p_3 = models.CharField(max_length=20)
+    telephone_p_3 = models.IntegerField(max_length=11)
+    first_name_p_4 = models.CharField(max_length=20)
+    last_name_p_4 = models.CharField(max_length=20)
+    telephone_p_4 = models.IntegerField(max_length=11)
+    address_line_1 = models.CharField(max_length=20)
+
 class Agent(models.Model):
     address_line_1 = models.CharField(max_length=20)
     address_line_2 = models.CharField(max_length=20)
@@ -41,7 +41,7 @@ class Agent(models.Model):
     postcode = models.CharField(max_length=6)
     company_name = models.CharField(max_length=20)
     contact_name = models.CharField(max_length=20)
-    telephone = models.IntegerField(max_length=11)
+    telephone_agent = models.IntegerField(max_length=11)
     email_address = models.EmailField()
 
 class Sale(models.Model):
