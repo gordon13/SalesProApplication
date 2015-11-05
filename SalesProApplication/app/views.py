@@ -15,7 +15,7 @@ def home(request):
         'app/index.html',
         context_instance = RequestContext(request,
         {
-            'title':'SalesPro',
+            'title':'Main Dashboard',
             'year':datetime.now().year,
         })
     )
@@ -27,31 +27,7 @@ def agents(request):
         'app/agents.html',
         context_instance = RequestContext(request,
         {
-            'title':'Agents',
-            'year':datetime.now().year,
-        })
-    )
-def property(request):
-    """Renders the properties page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/property.html',
-        context_instance = RequestContext(request,
-        {
-            'title':'Property',
-            'year':datetime.now().year,
-        })
-    )
-def properties(request):
-    """Renders the reminders page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/properties.html',
-        context_instance = RequestContext(request,
-        {
-            'title':'Properties',
+            'title':'Agent Details',
             'year':datetime.now().year,
         })
     )
@@ -67,6 +43,30 @@ def reminders(request):
             'year':datetime.now().year,
         })
     )
+def exchanges(request):
+    """Renders the exchanges page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/exchanges.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Exchanges',
+            'year':datetime.now().year,
+        })
+    )
+def property(request):
+    """Renders the property page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/property.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Property Information',
+            'year':datetime.now().year,
+        })
+    )
 def new(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
@@ -79,41 +79,42 @@ def new(request):
             'year':datetime.now().year,
         })
     )
-def archive(request):
-    """Renders the archive page."""
+def milestones(request):
+    """Renders the milestones page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/archive.html',
+        'app/milestones.html',
         context_instance = RequestContext(request,
         {
-            'title':'Archive',
+            'title':'Milestones',
             'year':datetime.now().year,
         })
     )
-def invoice(request):
-    """Renders the invoice page."""
+def chain(request):
+    """Renders the chain page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/invoice.html',
+        'app/chain.html',
         context_instance = RequestContext(request,
         {
-            'title':'Invoices Due',
+            'title':'Chain',
             'year':datetime.now().year,
         })
     )
-def pipeline(request):
-    """Renders the pipeline page."""
+def report(request):
+    """Renders the report page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/pipeline.html',
+        'app/report.html',
         context_instance = RequestContext(request,
         {
-            'title':'Total Pipeline',
+            'title':'Report',
             'year':datetime.now().year,
         })
     )
+
 
 

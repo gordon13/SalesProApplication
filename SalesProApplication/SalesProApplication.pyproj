@@ -71,9 +71,10 @@
     <Content Include="app\static\app\fonts\Stilu\__MACOSX\._Read me.rtf" />
     <Content Include="app\static\app\fonts\Stilu\__MACOSX\._stilu.png" />
     <Content Include="app\static\app\images\sales-pro.png" />
+    <Content Include="app\templates\app\chain.html" />
     <Content Include="app\templates\app\agents.html" />
-    <Content Include="app\templates\app\properties.html" />
-    <Content Include="app\templates\app\invoice.html" />
+    <Content Include="app\templates\app\milestones.html" />
+    <Content Include="app\templates\app\report.html" />
     <Content Include="app\templates\app\pipeline.html" />
     <Content Include="app\templates\app\reminders.html" />
     <Content Include="app\templates\app\new.html" />
@@ -102,7 +103,7 @@
     <Content Include="app\static\app\scripts\respond.js" />
     <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
-    <Content Include="app\templates\app\archive.html" />
+    <Content Include="app\templates\app\exchanges.html" />
     <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />

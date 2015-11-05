@@ -1,14 +1,11 @@
 ﻿{% extends "app/layout.html" %}
 
 {% block content %}
-
 <div class="row">
-  <div id="col-style-inner" class="col-lg-5"><h2>Purchaser</h2></div>
-  <div id="col-style-inner" class="col-lg-6"><h2>Vendor</h2></div>
+    <a href="{% url 'milestones' %}"><div id="col-style" class="col-sm-4"><h2>Milestones</h2></div></a>
+    <div class="col-sm-7">
+        <a href="{% url 'chain' %}"><div id="col-style-inner" class="col-sm-11"><h2>Chain</h2></div></a>
+        <a a href="{% url 'report' %}"><div id="col-style-inner" class="col-sm-11"><h2>Report</h2></div></a>        
+    </div>
 </div>
-<div class="row">
-  <div id="col-style-inner" class="col-lg-5"><h2>Milestones</h2></div>
-  <div id="col-style-inner" class="col-lg-6"><h2>Chain</h2></div>
-</div>
-
 {% endblock %}

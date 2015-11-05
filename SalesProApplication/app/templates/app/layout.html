@@ -14,18 +14,18 @@
 </head>
 
 <body>  
-    <div id="wrapper">
+    <div class="toggled" id="wrapper">
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'agents' %}">Agents</a></li>
-                <li><a href="{% url 'properties' %}">Properties</a></li>
-                <li><a href="{% url 'property' %}">Property</a></li>
                 <li><a href="{% url 'reminders' %}">Reminders</a></li>
-                <li><a href="{% url 'new' %}">Add New Sale</a></li>
-                <li><a href="{% url 'archive' %}">Archive</a></li>
-                <li><a href="{% url 'invoice' %}">Invoices Due</a></li>
-                <li><a href="{% url 'pipeline' %}">Toal Pipeline</a></li>
+                <li><a href="{% url 'exchanges' %}">Exchanges</a></li>
+                <li><a href="{% url 'property' %}">Property</a></li>
+                <li><a href="{% url 'new' %}">New Sale</a></li>
+                <li><a href="{% url 'milestones' %}">Milestones</a></li>
+                <li><a href="{% url 'chain' %}">Chain Info</a></li>
+                <li><a href="{% url 'report' %}">Report</a></li>
                 <li>{% include 'app/loginpartial.html' %}</li>
             </ul>      
         </div>
@@ -33,15 +33,16 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="#menu-toggle" class="nav-button" id="menu-toggle"><img src="{% static 'app/images/sales-pro.png' %}" /></a><br />
+                    <a href="#menu-toggle" class="nav-button" id="menu-toggle"><img style="display:inline-block" src="{% static 'app/images/sales-pro.png' %}" /></a>
+                    <h1 style="display:inline-block;"><b style="margin-left: 30px">{{ title }}</b></h1><br />
                     {% block content %} 
                     {% endblock %}
-                    <hr/>
-                    <footer>
-                        <p>&copy; {{ year }} - SalesPro</p>
-                    </footer>
                 </div>
             </div>
+            <hr/>
+            <footer>
+                <p>&copy; {{ year }} - SalesPro</p>
+            </footer>
         </div>
     </div>
 </div>
