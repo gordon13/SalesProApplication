@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Vendor, Purchaser, Property, Agent, Sale
+from .models import Seller, Buyer, Property, Agent, Progressor
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -20,10 +20,10 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    'placeholder':'Password'}))
 
 
-class VendorForm(forms.ModelForm):
+class SellerForm(forms.ModelForm):
     class Meta:
-        model = Vendor
-        exclude = ['id']
+        model = Seller
+        exclude = ['id', 'property']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -32,9 +32,21 @@ class VendorForm(forms.ModelForm):
                 'class': 'form-control'
         })
 
-class PurchaserForm(forms.ModelForm):
+class BuyerForm(forms.ModelForm):
     class Meta:
-        model = Purchaser
+        model = Buyer
+        exclude = ['id', 'property']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+        })
+
+class ProgressorForm(forms.ModelForm):
+    class Meta:
+        model = Progressor
         exclude = ['id']
 
     def __init__(self, *args, **kwargs):
@@ -59,18 +71,6 @@ class AgentForm(forms.ModelForm):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        exclude = ['id', 'agent']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control'
-        })
-
-class SaleForm(forms.ModelForm):
-    class Meta:
-        model = Sale
         exclude = ['id']
 
     def __init__(self, *args, **kwargs):
