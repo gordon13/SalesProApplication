@@ -1,0 +1,16 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="row">
+    <h2>Add agent</h2>
+    <section id="add-agent" class="form-horizontal">
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-4 ">
+                {{agent_form}}
+            </div>
+            <input type="submit" class="btn btn-info " value="Add" />
+        </form>
+    </section>
+</div>
+{% endblock %}

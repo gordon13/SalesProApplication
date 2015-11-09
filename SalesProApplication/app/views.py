@@ -88,7 +88,7 @@ def agent_details(request):
 
     return render(
         request,
-        'app/agent_dtails.html',
+        'app/agent_details.html',
         context_instance = RequestContext(request,
         {
             'title':'Agent Details',
