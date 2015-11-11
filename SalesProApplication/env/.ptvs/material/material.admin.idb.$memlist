@@ -1,7 +1,0 @@
-modules
-models
-Admin
-templatetags
-apps
-default_app_config
-admin
