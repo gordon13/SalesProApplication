@@ -29,3 +29,4 @@ publish-module.psm1
 Microsoft.Web.Publishing.AspNetCompileMerge.targets
 Microsoft.WebApplication.targets
 SalesProApplication.pyproj
+/SalesProApplication/SalesProApplication.pyproj
