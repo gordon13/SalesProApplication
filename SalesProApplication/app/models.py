@@ -25,8 +25,7 @@ class Agent(models.Model):
         return (self.contact_first_name + " " + self.contact_last_name)
 
 class Property(models.Model):
-    agent = models.ForeignKey(Agent)
-    
+    agent = models.ForeignKey(Agent)   
     address_line_1 = models.CharField(blank=True, null=True, max_length=20)
     address_line_2 = models.CharField(blank=True, null=True, max_length=20)
     address_line_3 = models.CharField(blank=True, null=True, max_length=20)

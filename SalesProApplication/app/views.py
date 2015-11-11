@@ -246,6 +246,18 @@ def report(request):
             'year':datetime.now().year,
         })
     )
+def pipeline(request):
+    """Renders the pipeline page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/pipeline.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Pipeline',
+            'year':datetime.now().year,
+        })
+    )
 
 
 

@@ -41,7 +41,6 @@ partial
 ugettext_lazy
 libraries
 kwarg_re
-getcallargs
 VariableNode
 InvalidTemplateLibrary
 render_value_in_context
@@ -72,6 +71,7 @@ warnings
 filter_re
 get_library
 VariableDoesNotExist
+inspect
 ALLOWED_VARIABLE_CHARS
 ContextPopException
 tag_re

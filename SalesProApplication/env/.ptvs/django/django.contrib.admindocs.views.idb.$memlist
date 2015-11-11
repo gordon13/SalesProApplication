@@ -2,7 +2,7 @@ ViewIndexView
 method_decorator
 ModelIndexView
 utils
-get_readable_field_data_type
+func_has_no_args
 TemplateView
 models
 _
@@ -27,6 +27,7 @@ libraries
 extract_views_from_urlpatterns
 simplify_regex
 Engine
+get_readable_field_data_type
 TemplateTagIndexView
 import_module
 inspect

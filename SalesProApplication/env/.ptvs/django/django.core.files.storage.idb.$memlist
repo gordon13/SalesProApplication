@@ -9,7 +9,7 @@ filepath_to_uri
 safe_join
 File
 datetime
-getargspec
+settings
 __all__
 locks
 errno
@@ -21,7 +21,7 @@ default_storage
 RemovedInDjango110Warning
 get_valid_filename
 force_text
-urljoin
 get_storage_class
+urljoin
+func_supports_parameter
 get_random_string
-settings

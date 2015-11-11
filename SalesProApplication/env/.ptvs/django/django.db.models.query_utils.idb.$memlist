@@ -7,7 +7,6 @@ six
 FieldDoesNotExist
 LOOKUP_SEP
 namedtuple
-apps
 Q
 utils
 refs_aggregate

@@ -7,6 +7,9 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/simple-sidebar.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
     {% include 'material/includes/material_js.html' %}
@@ -27,6 +30,7 @@
                 <li><a href="{% url 'milestones' %}">Milestones</a></li>
                 <li><a href="{% url 'chain' %}">Chain Info</a></li>
                 <li><a href="{% url 'report' %}">Report</a></li>
+                <li><a href="{% url 'pipeline' %}">Pipeline</a></li>
                 <li>{% include 'app/loginpartial.html' %}</li>
             </ul>      
         </div>

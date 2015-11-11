@@ -1,8 +1,8 @@
+get_func_args
 BaseCommand
 CommandError
-inspect
+ListOptionAction
 argparse
 Command
-ListOptionAction
 gdal
 LayerOptionAction

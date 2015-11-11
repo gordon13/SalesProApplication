@@ -2,11 +2,22 @@
 
 {% block content %}
 <div class="row">
-    <h2>Agents</h2>
-    <section id="agents">
+    <div id="col-style" class="col-sm-4">
+        <h2>List of Agents</h2>
+        <a href="{% url 'property' %}"><section id="agents">
         {% for agent in agents %}
-            - {{agent.contact_first_name}} {{contact_agent.last_name}} <br/>
+        {{agent.company_name}}<br/>
         {% endfor %}
-    </section>
+        </section></a>
+    </div>
+    <div id="col-style" class="col-sm-6">
+        <h2>Agent Properties</h2>
+        <a href="{% url 'property' %}"><section id="agents">
+        {% for house in property %}
+        {{house.agent}}<br/>
+        {% endfor %}
+        </section></a>
+    </div>
 </div>
+
 {% endblock %}

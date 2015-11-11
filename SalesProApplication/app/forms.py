@@ -5,6 +5,7 @@ Definition of forms.
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
+from datetimewidget.widgets import DateTimeWidget
 
 from .models import Seller, Buyer, Property, Agent, Progressor
 
@@ -72,6 +73,10 @@ class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = ['id']
+        widgets = {
+            #Use localization and bootstrap 3
+            'date_agreed': DateTimeWidget(attrs={'id':"yourdatetimeid"},  usel10n = True, bootstrap_version=3)
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

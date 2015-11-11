@@ -1,6 +1,6 @@
 RemovedInDjango19Warning
 DatabaseError
-ConnectionRouter
+HAS_INSPECT_SIGNATURE
 ConnectionDoesNotExist
 OperationalError
 DatabaseErrorWrapper
@@ -16,6 +16,7 @@ DEFAULT_DB_ALIAS
 inspect
 settings
 ImproperlyConfigured
+ConnectionRouter
 ConnectionHandler
 InterfaceError
 load_backend
