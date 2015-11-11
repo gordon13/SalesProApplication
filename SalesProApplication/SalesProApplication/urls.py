@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^add_progressor$', 'app.views.add_progressor', name='add_progressor'),
     url(r'^add_agent$', 'app.views.add_agent', name='add_agent'),
     url(r'^agents$', 'app.views.agents', name='agents'),
-    url(r'^agent_details$', 'app.views.agent_details', name='agent_details'),
+    url(r'^agent_details/(?P<agent_id>[0-9]+)/$', 'app.views.agent_details', name='agent_details'),
     url(r'^reminders$', 'app.views.reminders', name='reminders'),
     url(r'^exchanges$', 'app.views.exchanges', name='exchanges'),
     url(r'^property$', 'app.views.property', name='property'),
@@ -26,6 +26,9 @@ urlpatterns = patterns('',
     url(r'^chain$', 'app.views.chain', name='chain'),
     url(r'^pipeline$', 'app.views.pipeline', name='pipeline'),
     url(r'^report$', 'app.views.report', name='report'),
+
+    url(r'^get_properties$', 'app.views.get_properties', name='get_properties'),
+
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {

@@ -1,7 +1,7 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-
+{{ property_form.media }}
 
 <hr>
 <div class="row">
@@ -17,22 +17,17 @@
                     <h4 class="form-header">Seller</h4>
                     {{seller_form}}
                 </div>
-                <div class="col-md-4 ">
-                    <h4 class="form-header">Buyer</h4>
-                    {{buyer_form}}
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <h4 class="form-header">Buyer</h4>
+                        {{buyer_form}}
+                    </div>
                 </div>
+                
                 <input type="submit" class="btn btn-info " value="Add sale"/> 
             </form>
         </section>
     </div>
 </div>
-
-{% endblock %}
-
-
-{% block scripts %}
-
-    {% load staticfiles %}
-<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
 
 {% endblock %}

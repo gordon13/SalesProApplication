@@ -2,7 +2,18 @@
 
 {% block content %}
 <div class="row">
-    <a href="{% url 'property' %}"><div id="col-style" class="col-sm-4"><h2>Pipeline</h2></div></a>
+    <div id="col-style" class="col-sm-4">
+        <h2>Pipeline</h2>
+        {% if pipeline %}
+            <ul>
+                {% for property in pipeline %}
+                    <li><a href="{% url 'property' %}">Property: {{property}}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            No properties assigned to this agent
+        {% endif %}
+    </div>
     <a href="{% url 'new' %}"><div id="col-style" class="col-sm-6"><h2>Add Sale</h2></div></a>
 </div>
 {% endblock %}

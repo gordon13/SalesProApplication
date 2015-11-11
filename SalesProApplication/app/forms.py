@@ -73,14 +73,15 @@ class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = ['id']
-        widgets = {
-            #Use localization and bootstrap 3
-            'date_agreed': DateTimeWidget(attrs={'id':"yourdatetimeid"},  usel10n = True, bootstrap_version=3)
-        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control'
-        })
+            if self.fields[field].__class__.__name__ == "DateTimeField":
+                self.fields[field].widget = DateTimeWidget( usel10n = True)
+            else:
+                self.fields[field].widget.attrs.update({
+                    'class': 'form-control'
+                })
+            
+

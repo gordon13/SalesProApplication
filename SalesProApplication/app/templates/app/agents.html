@@ -4,11 +4,13 @@
 <div class="row">
     <div id="col-style" class="col-sm-4">
         <h2>List of Agents</h2>
-        <a href="{% url 'property' %}"><section id="agents">
+        <section id="agents">
         {% for agent in agents %}
-        {{agent.company_name}}<br/>
+            <ul>
+                <a href="{% url 'agent_details' agent.id %}">{{agent.company_name}}</a>
+            </ul>
         {% endfor %}
-        </section></a>
+        </section>
     </div>
     <div id="col-style" class="col-sm-6">
         <h2>Agent Properties</h2>

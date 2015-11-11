@@ -36,8 +36,8 @@ class Property(models.Model):
     freehold = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=2)
     leasehold = models.DecimalField(blank=True, null=True, max_digits=9, decimal_places=2)
     lease_length = models.IntegerField(blank=True, null=True)
-    date_agreed = models.DateField(blank=True, null=True)
-    date_target = models.DateField(blank=True, null=True)
+    date_agreed = models.DateTimeField(blank=True, null=True)
+    date_target = models.DateTimeField(blank=True, null=True)
     required_finance = models.BooleanField(blank=True, default=False)
     
     def __unicode__(self):
