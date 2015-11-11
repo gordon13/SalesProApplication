@@ -1,2 +1,5 @@
-django<2
-django-material
+Django==1.8.6
+django-datetime-widget==0.9.3
+django-easy-pjax==1.2.0
+django-material==0.4.1
+pytz==2015.7
