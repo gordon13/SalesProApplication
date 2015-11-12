@@ -7,19 +7,43 @@
         <section id="agents">
         {% for agent in agents %}
             <ul>
-                <a href="{% url 'agent_details' agent.id %}">{{agent.company_name}}</a>
+                <a href="javascript:void(0)" class="agent-link" data-agent-id="{{agent.id}}">{{agent.company_name}}</a>
             </ul>
         {% endfor %}
         </section>
     </div>
     <div id="col-style" class="col-sm-6">
         <h2>Agent Properties</h2>
-        <a href="{% url 'property' %}"><section id="agents">
-        {% for house in property %}
-        {{house.agent}}<br/>
-        {% endfor %}
-        </section></a>
+        <section id="agent-properties">
+            <ul>
+
+            </ul>
+        </section>
     </div>
 </div>
 
+<script>
+    $(".agent-link").each(function () {
+        var agent_id = $(this).data("agent-id");
+        $(this).on("click", function () {
+            $.ajax({
+                type: "GET",
+                url: 'get_properties/' + agent_id + '/',
+                error: function (request, error) {
+                    console.log(error);
+                },
+                success: populatePropertiesContainer,
+                dataType: 'html'
+            });
+        });
+    });
+
+
+    function populatePropertiesContainer(data, textStatus, jqXHR) {
+        console.log(data)
+        $('#agent-properties ul').html(data)
+    }
+</script>
+
 {% endblock %}
+

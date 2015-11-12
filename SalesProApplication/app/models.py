@@ -10,7 +10,7 @@ class Progressor(models.Model):
     telephone = models.IntegerField(blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return (self.first_name + " " + self.last_name)
 
 class Agent(models.Model):
@@ -21,7 +21,7 @@ class Agent(models.Model):
     telephone_agent = models.IntegerField(blank=True, null=True)
     email_address = models.EmailField(blank=True, null=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return (self.contact_first_name + " " + self.contact_last_name)
 
 class Property(models.Model):
@@ -39,9 +39,12 @@ class Property(models.Model):
     date_agreed = models.DateTimeField(blank=True, null=True)
     date_target = models.DateTimeField(blank=True, null=True)
     required_finance = models.BooleanField(blank=True, default=False)
-    
+
+    def __str__(self):
+        return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, self.postcode, self.agent,))
+
     def __unicode__(self):
-        return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, postcode, agent,))
+        return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, self.postcode, self.agent,))
 
 class Seller(models.Model):
     property = models.ForeignKey(Property)
@@ -49,7 +52,7 @@ class Seller(models.Model):
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self.address_line_1))
 
 class Buyer(models.Model):
@@ -58,5 +61,18 @@ class Buyer(models.Model):
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self.address_line_1))
+
+
+# Milestones
+class Milestone(models.Model):
+    property = models.ForeignKey(Property)
+    milestone1 = models.BooleanField(blank=True, default=False)
+    milestone2 = models.BooleanField(blank=True, default=False)
+    milestone3 = models.BooleanField(blank=True, default=False)
+    milestone4 = models.BooleanField(blank=True, default=False)
+    milestone5 = models.BooleanField(blank=True, default=False)
+
+    def __str__(self):
+        return ("Milestones for property %s: %s"%self.property.id)

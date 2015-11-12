@@ -3,7 +3,8 @@ Definition of views.
 """
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpRequest, HttpResponseRedirect
+from django.template.loader import render_to_string
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 
@@ -136,7 +137,7 @@ def exchanges(request):
             'year':datetime.now().year,
         })
     )
-def property(request):
+def property(request, property_id):
     """Renders the property page."""
     assert isinstance(request, HttpRequest)
     return render(
@@ -145,6 +146,7 @@ def property(request):
         context_instance = RequestContext(request,
         {
             'title':'Property Information',
+            'property':property_id,
             'year':datetime.now().year,
         })
     )
@@ -258,15 +260,14 @@ def pipeline(request):
 
 # Non page based views. e.g. return data like the properties etc
 
-def get_properties(request):
+def get_properties(request, agent_id):
     """Renders the pipeline page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/pipeline.html',
-        context_instance = RequestContext(request,
-        {
-            'title':'Pipeline',
-            'year':datetime.now().year,
-        })
-    )
+    if request.method == 'GET':
+        properties = Property.objects.filter(agent=agent_id)
+        html = render_to_string('app/components/agent_properties_list.html', {'properties': properties})
+        return HttpResponse(html)
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
