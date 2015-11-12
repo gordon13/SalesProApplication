@@ -46,6 +46,8 @@ class Property(models.Model):
     def __unicode__(self):
         return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, self.postcode, self.agent,))
 
+Property.milestones = property(lambda u: Milestone.objects.get_or_create(property=u)[0])
+
 class Seller(models.Model):
     property = models.ForeignKey(Property)
     first_name = models.CharField(blank=True, null=True, max_length=20)
@@ -67,7 +69,7 @@ class Buyer(models.Model):
 
 # Milestones
 class Milestone(models.Model):
-    property = models.ForeignKey(Property)
+    property = models.OneToOneField(Property)
     milestone1 = models.BooleanField(blank=True, default=False)
     milestone2 = models.BooleanField(blank=True, default=False)
     milestone3 = models.BooleanField(blank=True, default=False)

@@ -2,7 +2,16 @@
 
 {% block content %}
 <div class="row">
-    <a href="{% url 'milestones' %}"><div id="col-style" class="col-sm-4"><h2>Milestones</h2></div></a>
+    <div id="col-style" class="col-sm-4">
+        <h2>Milestones</h2>
+        <ul>
+            <li>Milestone 1 - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 2 - {% if milestones.milestone2 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 3 - {% if milestones.milestone3 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 4 - {% if milestones.milestone4 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 5 - {% if milestones.milestone5 == True %}Complete{% else %}Pending{% endif %}</li>
+        </ul>
+    </div>
     <div class="col-sm-7">
         <a href="{% url 'chain' %}">
             <div id="col-style-inner" class="col-sm-11">

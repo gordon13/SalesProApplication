@@ -3,23 +3,28 @@ Definition of views.
 """
 
 from django.shortcuts import render, get_object_or_404
+from django.forms.models import model_to_dict
 from django.template.loader import render_to_string
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm
-from .models import Agent, Property
+from .models import Agent, Property, Milestone
 
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+    
+    properties = Property.objects.all()
+
     return render(
         request,
         'app/index.html',
         context_instance = RequestContext(request,
         {
             'title':'Main Dashboard',
+            'properties':properties,
             'year':datetime.now().year,
         })
     )
@@ -140,6 +145,9 @@ def exchanges(request):
 def property(request, property_id):
     """Renders the property page."""
     assert isinstance(request, HttpRequest)
+
+    milestones = Property.objects.get(pk=property_id).milestones
+
     return render(
         request,
         'app/property.html',
@@ -147,6 +155,7 @@ def property(request, property_id):
         {
             'title':'Property Information',
             'property':property_id,
+            'milestones':milestones,
             'year':datetime.now().year,
         })
     )

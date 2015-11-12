@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'material',
     'material.frontend',
     'material.admin',
-    'datetimewidget' 
+    'datetimewidget'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
