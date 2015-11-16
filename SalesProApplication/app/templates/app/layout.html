@@ -18,15 +18,15 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'add_agent' %}">Add agent</a></li>
-                <li><a href="{% url 'agents' %}">Agents</a></li>
-                <li><a href="{% url 'reminders' %}">Reminders</a></li>
-                <li><a href="{% url 'exchanges' %}">Exchanges</a></li>
-                <li><a href="{% url 'new' %}">New Sale</a></li>
-                <li><a href="{% url 'milestones' %}">Milestones</a></li>
-                <li><a href="{% url 'chain' %}">Chain Info</a></li>
-                <li><a href="{% url 'report' %}">Report</a></li>
-                <li><a href="{% url 'pipeline' %}">Pipeline</a></li>
+                {% if 0 in user.profile.user_type %}<li><a href="{% url 'add_agent' %}">Add agent</a></li>{% endif %}
+                {% if 0 or 1 in user.profile.user_type %}<li><a href="{% url 'agents' %}">Agents</a></li>{% endif %}
+                {% if 0 or 1 in user.profile.user_type %}<li><a href="{% url 'reminders' %}">Reminders</a></li>{% endif %}
+                {% if 0 or 1 in user.profile.user_type %}<li><a href="{% url 'exchanges' %}">Exchanges</a></li>{% endif %}
+                {% if 0 or 1 or 2 in user.profile.user_type %}<li><a href="{% url 'new' %}">New Sale</a></li>{% endif %}
+                {% if 0 or 1 or 2 or 3 in user.profile.user_type %}<li><a href="{% url 'milestones' %}">Milestones</a></li>{% endif %}
+                {% if 0 or 1 in user.profile.user_type %}<li><a href="{% url 'chain' %}">Chain Info</a></li>{% endif %}
+                {% if 0 or 1 in user.profile.user_type %}<li><a href="{% url 'report' %}">Report</a></li>{% endif %}
+                {% if 0 or 1 in user.profile.user_type %}<li><a href="{% url 'pipeline' %}">Pipeline</a></li>{% endif %}
                 <li>{% include 'app/loginpartial.html' %}</li>
             </ul>      
         </div>

@@ -13,7 +13,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'app.views.home', name='home'),
+    url(r'^home$', 'app.views.home', name='home'),
     url(r'^add_progressor$', 'app.views.add_progressor', name='add_progressor'),
     url(r'^add_agent$', 'app.views.add_agent', name='add_agent'),
     url(r'^agents$', 'app.views.agents', name='agents'),
