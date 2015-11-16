@@ -1,8 +1,28 @@
-﻿"""
-Definition of models.
-"""
-
+﻿from django.contrib.auth.models import User
 from django.db import models
+
+ACC_TYPES = (
+    (0, 'Manager'),
+    (1, 'Agent'),
+    (2, 'Progressor'),
+    (3, 'Basic'))
+
+class UserProfile(models.Model):
+    user            = models.OneToOneField(User)
+    user_type       = models.IntegerField(blank=True, null=True, choices = ACC_TYPES, default=3)
+    first_name      = models.CharField(blank=True, null=True, max_length=20)
+    last_name       = models.CharField(blank=True, null=True, max_length=20)
+    telephone       = models.IntegerField(blank=True, null=True)
+    email_address   = models.EmailField(blank=True, null=True)
+    company_name    = models.CharField(blank=True, null=True, max_length=20)
+
+    def user_type_verbose(self):
+        return dict(ACC_TYPES)[self.user_type]
+
+    def __str__(self):
+        return (self.user.username + "(" + str(ACC_TYPES[self.user_type][1]) + ")")
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 class Progressor(models.Model):
     first_name = models.CharField(blank=True, null=True, max_length=20)
