@@ -73,6 +73,7 @@ class Seller(models.Model):
     first_name = models.CharField(blank=True, null=True, max_length=20)
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
         return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self.address_line_1))
@@ -82,6 +83,7 @@ class Buyer(models.Model):
     first_name = models.CharField(blank=True, null=True, max_length=20)
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
         return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self.address_line_1))
