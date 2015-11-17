@@ -2,6 +2,7 @@
 Definition of views.
 """
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.forms.models import model_to_dict
 from django.template.loader import render_to_string
@@ -12,6 +13,7 @@ from datetime import datetime
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm
 from .models import Agent, Property, Milestone
 
+@login_required
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
@@ -256,6 +258,8 @@ def report(request):
             'year':datetime.now().year,
         })
     )
+
+@login_required
 def pipeline(request):
     """Renders the pipeline page."""
     assert isinstance(request, HttpRequest)
