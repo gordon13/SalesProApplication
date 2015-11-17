@@ -5,6 +5,12 @@
     color: #fff;
 
 }
+.table-condensed {
+	background-color: #1972B0;
+}
+.boolean-field {
+
+}
 #col-style {
     height: 500px;
     background: #fff;

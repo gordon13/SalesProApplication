@@ -9,7 +9,7 @@
                 {% for property in properties %}
                     <li><a href="{% url 'property' property.id %}">Ref: {{property.id}} - {{property}}</a></li>
                 {% endfor %}
-            </div>
+        </div>
         <a a href="{% url 'exchanges' %}"><div id="col-style-inner" class="col-sm-11"><h2>Exchanges</h2></div></a>        
     </div>
 </div>
