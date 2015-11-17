@@ -79,6 +79,10 @@ class PropertyForm(forms.ModelForm):
         for field in iter(self.fields):
             if self.fields[field].__class__.__name__ == "DateTimeField":
                 self.fields[field].widget = DateTimeWidget( usel10n = True)
+            elif self.fields[field].__class__.__name__ == "BooleanField":
+                self.fields[field].widget.attrs.update({
+                    'class': 'boolean-field'
+                })
             else:
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control'

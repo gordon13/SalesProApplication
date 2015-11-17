@@ -15,8 +15,6 @@ from .models import Agent, Property, Milestone
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    print(request.user)
-    print(request.user.profile)
     properties = Property.objects.all()
 
     return render(
@@ -217,18 +215,23 @@ def new(request):
             'year':datetime.now().year,
         })
     )
-def milestones(request):
+def milestones(request, property_id):
     """Renders the milestones page."""
     assert isinstance(request, HttpRequest)
+    milestones = Property.objects.get(pk=property_id).milestones
+
     return render(
         request,
         'app/milestones.html',
         context_instance = RequestContext(request,
         {
             'title':'Milestones',
+            'milestones':property_id,
+            'milestones':milestones,
             'year':datetime.now().year,
         })
     )
+     
 def chain(request):
     """Renders the chain page."""
     assert isinstance(request, HttpRequest)
