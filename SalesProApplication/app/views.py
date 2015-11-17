@@ -15,8 +15,6 @@ from .models import Agent, Property, Milestone
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    print(request.user)
-    print(request.user.profile)
     properties = Property.objects.all()
 
     return render(
