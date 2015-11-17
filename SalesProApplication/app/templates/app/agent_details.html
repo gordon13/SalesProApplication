@@ -7,7 +7,7 @@
         {% if pipeline %}
             <ul>
                 {% for property in pipeline %}
-                    <li><a href="{% url 'property' %}">Property: {{property}}</a></li>
+                    <li><a href="{% url 'property' property.id%}">Property: {{property}}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
