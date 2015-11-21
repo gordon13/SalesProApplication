@@ -30,6 +30,7 @@ def home(request):
         })
     )
 
+@login_required
 def add_progressor(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
@@ -59,6 +60,7 @@ def add_progressor(request):
         })
     )
 
+@login_required
 def add_agent(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
@@ -88,6 +90,7 @@ def add_agent(request):
         })
     )
 
+@login_required
 def agent_details(request, agent_id):
     """Renders the agents page."""
     assert isinstance(request, HttpRequest)
@@ -105,6 +108,7 @@ def agent_details(request, agent_id):
         })
     )
 
+@login_required
 def agents(request):
     """Renders the agents page."""
     assert isinstance(request, HttpRequest)
@@ -119,6 +123,8 @@ def agents(request):
             'agents': agents
         })
     )
+
+@login_required
 def reminders(request):
     """Renders the reminders page."""
     assert isinstance(request, HttpRequest)
@@ -131,6 +137,8 @@ def reminders(request):
             'year':datetime.now().year,
         })
     )
+
+@login_required
 def exchanges(request):
     """Renders the exchanges page."""
     assert isinstance(request, HttpRequest)
@@ -143,6 +151,8 @@ def exchanges(request):
             'year':datetime.now().year,
         })
     )
+
+@login_required
 def property(request, property_id):
     """Renders the property page."""
     assert isinstance(request, HttpRequest)
@@ -160,6 +170,8 @@ def property(request, property_id):
             'year':datetime.now().year,
         })
     )
+
+@login_required
 def new(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
@@ -217,6 +229,8 @@ def new(request):
             'year':datetime.now().year,
         })
     )
+
+@login_required
 def milestones(request, property_id):
     """Renders the milestones page."""
     assert isinstance(request, HttpRequest)
@@ -233,7 +247,8 @@ def milestones(request, property_id):
             'year':datetime.now().year,
         })
     )
-     
+
+@login_required 
 def chain(request):
     """Renders the chain page."""
     assert isinstance(request, HttpRequest)
@@ -246,6 +261,8 @@ def chain(request):
             'year':datetime.now().year,
         })
     )
+
+@login_required
 def report(request):
     """Renders the report page."""
     assert isinstance(request, HttpRequest)
@@ -276,7 +293,7 @@ def pipeline(request):
 
 
 # Non page based views. e.g. return data like the properties etc
-
+@login_required
 def get_properties(request, agent_id):
     """Renders the pipeline page."""
     if request.method == 'GET':
