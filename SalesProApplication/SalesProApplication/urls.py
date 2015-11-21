@@ -6,13 +6,17 @@ from datetime import datetime
 from django.conf.urls import patterns, url
 from app.forms import BootstrapAuthenticationForm
 
+
 # Uncomment the next lines to enable the admin:
 from django.conf.urls import include
 from django.contrib import admin
+from django.views.generic.base import RedirectView
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^$', RedirectView.as_view(url='/home')),
     url(r'^home$', 'app.views.home', name='home'),
     url(r'^add_progressor$', 'app.views.add_progressor', name='add_progressor'),
     url(r'^add_agent$', 'app.views.add_agent', name='add_agent'),
@@ -26,7 +30,6 @@ urlpatterns = patterns('',
     url(r'^chain$', 'app.views.chain', name='chain'),
     url(r'^pipeline$', 'app.views.pipeline', name='pipeline'),
     url(r'^report$', 'app.views.report', name='report'),
-
     url(r'^get_properties/(?P<agent_id>[0-9]+)/$', 'app.views.get_properties', name='get_properties'),
 
     url(r'^login/$',
