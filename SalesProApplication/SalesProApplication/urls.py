@@ -16,7 +16,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', RedirectView.as_view(url='/home')),
+    url(r'^$', 'app.views.user_redirect', name='user_redirect'),
     url(r'^home$', 'app.views.home', name='home'),
     url(r'^add_progressor$', 'app.views.add_progressor', name='add_progressor'),
     url(r'^add_agent$', 'app.views.add_agent', name='add_agent'),
@@ -49,7 +49,7 @@ urlpatterns = patterns('',
     url(r'^logout$',
         'django.contrib.auth.views.logout',
         {
-            'next_page': '/home',
+            'next_page': '/login',
         },
         name='logout'),
 

@@ -315,7 +315,17 @@ def pipeline(request):
         })
     )
 
-
+def user_redirect(request):
+    user = request.user
+    print(user.is_authenticated)
+    assert isinstance(request, HttpRequest)
+    if user.is_authenticated():
+        if user.profile.user_type != 3 and user.profile.user_type is not None:
+            return HttpResponseRedirect('/home') # Redirect after POST
+        else:
+            return HttpResponseRedirect('/milestones') # Redirect after POST
+    else:
+        return HttpResponseRedirect('/login') # Redirect after POST
 
 # Non page based views. e.g. return data like the properties etc
 @login_required
