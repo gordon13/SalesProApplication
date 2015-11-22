@@ -1,0 +1,3 @@
+﻿{% for property in properties %}
+<li><a href="{% url 'property' property.id %}" class="property-link" data-agent-id="{{property.agent.id}}" >Ref: {{property.id}} - {{property.address_line1}}, {{property.address_line2}}, {{property.address_line3}}, {{property.postcode}}</a></li>
+{% endfor %}
