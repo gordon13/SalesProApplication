@@ -11,7 +11,7 @@ from django.template import RequestContext
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm
-from .models import Agent, Property, Milestone
+from .models import Agent, Property, Milestone, Buyer, Seller
 
 @login_required
 def home(request):
@@ -166,7 +166,6 @@ def property(request, property_id):
         {
             'title':'Property Information',
             'property':property_id,
-            'milestones':milestones,
             'year':datetime.now().year,
         })
     )
@@ -231,19 +230,45 @@ def new(request):
     )
 
 @login_required
-def milestones(request, property_id):
+def milestones(request):
     """Renders the milestones page."""
     assert isinstance(request, HttpRequest)
+    print("Milestones view")
+
+    """Check if user is a buyer or a seller. User should only be either one. Never both"""
+    buyer = Buyer.objects.filter(user_id=request.user.id).first() # Returns object, or None
+    seller = Seller.objects.filter(user_id=request.user.id).first() # Returns object, or None
+    #property_id = buyer._property_id
+    
+    # If either seller or buyer is not None, then get the id of which ever is valid
+    if (buyer is not None):
+        _property = buyer._property
+        property_id = _property.id
+    elif (seller is not None):
+        _property = seller._property
+        property_id = _property.id
+    else:
+        print("Buyer/Seller for user not found")
+
+
+    
     milestones = Property.objects.get(pk=property_id).milestones
 
+    """Calculate percentage complete by summing the 'true' values"""
+    total   = 5
+    done    = sum([milestones.milestone1, True, milestones.milestone3, milestones.milestone4, True])
+    print(done)
+    percentage = done / total * 100
+    print(percentage)
     return render(
         request,
         'app/milestones.html',
         context_instance = RequestContext(request,
         {
             'title':'Milestones',
-            'milestones':property_id,
+            'property':_property,
             'milestones':milestones,
+            'percentage':percentage,
             'year':datetime.now().year,
         })
     )

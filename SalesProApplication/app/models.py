@@ -45,7 +45,8 @@ class Agent(models.Model):
         return (self.contact_first_name + " " + self.contact_last_name)
 
 class Property(models.Model):
-    agent = models.ForeignKey(Agent)   
+    agent = models.ForeignKey(Agent) 
+
     address_line_1 = models.CharField(blank=True, null=True, max_length=20)
     address_line_2 = models.CharField(blank=True, null=True, max_length=20)
     address_line_3 = models.CharField(blank=True, null=True, max_length=20)
@@ -63,35 +64,34 @@ class Property(models.Model):
     def __str__(self):
         return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, self.postcode, self.agent,))
 
-    def __unicode__(self):
-        return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, self.postcode, self.agent,))
-
-Property.milestones = property(lambda u: Milestone.objects.get_or_create(property=u)[0])
+Property.milestones = property(lambda u: Milestone.objects.get_or_create(_property=u)[0])
 
 class Seller(models.Model):
-    property = models.ForeignKey(Property)
+    user = models.ForeignKey(User, blank=True, null=True) 
+    _property = models.ForeignKey(Property, blank=True, null=True)
     first_name = models.CharField(blank=True, null=True, max_length=20)
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
-        return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self.address_line_1))
+        return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self._property.address_line_1))
 
 class Buyer(models.Model):
-    property = models.ForeignKey(Property)
+    user = models.ForeignKey(User, blank=True, null=True) 
+    _property = models.ForeignKey(Property, blank=True, null=True)
     first_name = models.CharField(blank=True, null=True, max_length=20)
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
-        return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self.address_line_1))
+        return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self._property.address_line_1))
 
 
 # Milestones
 class Milestone(models.Model):
-    property = models.OneToOneField(Property)
+    _property = models.OneToOneField(Property)
     milestone1 = models.BooleanField(blank=True, default=False)
     milestone2 = models.BooleanField(blank=True, default=False)
     milestone3 = models.BooleanField(blank=True, default=False)
@@ -99,4 +99,4 @@ class Milestone(models.Model):
     milestone5 = models.BooleanField(blank=True, default=False)
 
     def __str__(self):
-        return ("Milestones for property %s: %s"%self.property.id)
+        return ("Milestones for property %s: %s"%self._property.id)

@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
-from .models import Property, UserProfile
+from .models import Property, UserProfile, Buyer, Seller
 
 admin.site.unregister(User)
 
@@ -15,3 +15,5 @@ class UserProfileAdmin(UserAdmin):
 
 admin.site.register(User, UserProfileAdmin)
 admin.site.register(Property)
+admin.site.register(Buyer)
+admin.site.register(Seller)

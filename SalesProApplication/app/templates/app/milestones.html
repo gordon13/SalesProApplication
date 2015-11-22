@@ -1,0 +1,39 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="row">
+    <div id="col-style" class="col-sm-4">
+        <h2>Milestones</h2>
+        <ul>
+            <li>Milestone 1 - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 2 - {% if milestones.milestone2 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 3 - {% if milestones.milestone3 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 4 - {% if milestones.milestone4 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li>Milestone 5 - {% if milestones.milestone5 == True %}Complete{% else %}Pending{% endif %}</li>
+        </ul>
+    </div>
+    <div class="col-sm-6">
+        <span style="font-size:35px">Competion progress: {{percentage}}%</span>
+        <h2>Property</h2>
+        <ul>
+            <li>Address line 1: {{property.address_line_1}}</li>
+            <li>Address line 2: {{property.address_line_2}}</li>
+            <li>Address line 3: {{property.address_line_3}}</li>
+            <li>Postcode: {{property.postcode}}</li>
+        </ul>
+        
+        <h2>Details</h2>
+        <ul>
+            <li>Agency: {{property.agent.company_name}}</li>
+            <li>Agreed price: {{property.agreed_price}}</li>
+            <li>Free-hold: {{property.freehold}}</li>
+            <li>Lease-hold: {{property.leasehold}}</li>
+            <li>Lease length: {{property.lease_length}}</li>
+            <li>Date agreed: {{property.date_agreed}}</li>
+            <li>Date target: {{property.date_target}}</li>
+            <li>Required finance: {{property.required_finance}}</li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,3 +1,3 @@
-ECHO OFF
+@echo off
 C:\Python35\python manage.py makemigrations app
-PAUSE
+pause

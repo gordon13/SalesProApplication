@@ -16,7 +16,7 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    'class': 'form-control',
                                    'placeholder': 'User name'}))
     password = forms.CharField(label=_("Password"),
-                               widget=forms.TextInput({
+                               widget=forms.PasswordInput({
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
 

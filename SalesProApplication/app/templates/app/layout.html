@@ -26,6 +26,7 @@
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'chain' %}">Chain Info</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'report' %}">Report</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'pipeline' %}">Pipeline</a></li>{% endif %}
+                {% if user.profile.user_type == 3 %}<li><a href="{% url 'milestones' %}">Milestones</a></li>{% endif %}
                 <li>{% include 'app/loginpartial.html' %}</li>
             </ul>      
         </div>

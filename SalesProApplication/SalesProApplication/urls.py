@@ -26,7 +26,9 @@ urlpatterns = patterns('',
     url(r'^exchanges$', 'app.views.exchanges', name='exchanges'),
     url(r'^property/(?P<property_id>[0-9]+)/$', 'app.views.property', name='property'),
     url(r'^new$', 'app.views.new', name='new'),
-    url(r'^milestones/(?P<milestone_id>[0-9]+)/$', 'app.views.milestones', name='milestones'),
+    
+    url(r'^milestones$', 'app.views.milestones', name='milestones'),
+
     url(r'^chain$', 'app.views.chain', name='chain'),
     url(r'^pipeline$', 'app.views.pipeline', name='pipeline'),
     url(r'^report$', 'app.views.report', name='report'),
