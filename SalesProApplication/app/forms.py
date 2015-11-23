@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from datetimewidget.widgets import DateTimeWidget
 
-from .models import Seller, Buyer, Property, Agent, Progressor, Reminder
+from .models import Seller, Buyer, Property, Agent, Progressor
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -87,20 +87,3 @@ class PropertyForm(forms.ModelForm):
                 self.fields[field].widget.attrs.update({
                     'class': 'form-control'
                 })
-
-class ReminderForm(forms.ModelForm):
-    class Meta:
-        model = Reminder
-        exclude = ['id']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            if self.fields[field].__class__.__name__ == "DateTimeField":
-                self.fields[field].widget = DateTimeWidget( usel10n = True)
-            else:
-                self.fields[field].widget.attrs.update({
-                    'class': 'form-control'
-                })
-            
-

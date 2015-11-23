@@ -93,22 +93,27 @@ class Buyer(models.Model):
 # Milestones
 class Milestone(models.Model):
     property_obj = models.OneToOneField(Property)
+
     milestone1 = models.BooleanField(blank=True, default=False)
+    message1 = models.TextField(blank=True, null=True, max_length=200)
+    date1 = models.DateTimeField(blank=True, null=True)
+
     milestone2 = models.BooleanField(blank=True, default=False)
+    message2 = models.TextField(blank=True, null=True, max_length=200)
+    date2 = models.DateTimeField(blank=True, null=True)
+
     milestone3 = models.BooleanField(blank=True, default=False)
+    message3 = models.TextField(blank=True, null=True, max_length=200)
+    date3 = models.DateTimeField(blank=True, null=True)
+
     milestone4 = models.BooleanField(blank=True, default=False)
+    message4 = models.TextField(blank=True, null=True, max_length=200)
+    date4 = models.DateTimeField(blank=True, null=True)
+
     milestone5 = models.BooleanField(blank=True, default=False)
+    message5 = models.TextField(blank=True, null=True, max_length=200)
+    date5 = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return ("Milestones for property %s: %s"%self.property_obj.id)
+        return ("Milestones for property %s"%self.property_obj.id)
 
-# reminders
-class Reminder(models.Model):
-    property_obj = models.OneToOneField(Property, blank=True, null=True)
-    reminders_message = models.TextField(blank=True, null=True, max_length=200)
-    reminders_date = models.DateTimeField(blank=True, null=True)
-
-    def __str__(self):
-        return ("Reminders for property %s"%self.property_obj.id)
-
-Property.reminders = property(lambda u: Reminder.objects.get_or_create(property_obj=u)[0])

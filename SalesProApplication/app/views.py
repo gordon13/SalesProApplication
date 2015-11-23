@@ -11,17 +11,23 @@ from django.template import RequestContext
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm
-from .models import Agent, Property, Milestone, Buyer, Seller, Reminder
+from .models import Agent, Property, Milestone, Buyer, Seller
 
 @login_required
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     properties = Property.objects.filter(agent__user_id=request.user.id)
-    
+    milestones = Milestone.objects.all()
+
+
     reminders = []
-    for property_obj in properties:
-        reminders.append(property_obj.reminders)
+    if properties and milestones:
+        for property_obj in properties:
+            print(property_obj.id)
+            milestone = milestones.get(property_obj_id=property_obj.id)
+            print(milestone.date1)
+            reminders.append(milestone)
 
     return render(
         request,
