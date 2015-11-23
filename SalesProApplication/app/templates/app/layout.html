@@ -18,9 +18,9 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand"><a href="{% url 'home' %}">Home</a></li>
-                {% if user.profile.user_type == 0 %}<li><a href="{% url 'add_agent' %}">Add agent</a></li>{% endif %}
+                {% if user.profile.user_type == 0 %}<li><a href="{% url 'add_agent' %}">Add Agent</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1  %}<li><a href="{% url 'agents' %}">Agents</a></li>{% endif %}
-                {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'reminders' %}">Reminders</a></li>{% endif %}
+                {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'reminders' %}">Add Reminders</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'exchanges' %}">Exchanges</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 or user.profile.user_type == 2 %}<li><a href="{% url 'new' %}">New Sale</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'chain' %}">Chain Info</a></li>{% endif %}

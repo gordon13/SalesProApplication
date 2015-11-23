@@ -100,3 +100,12 @@ class Milestone(models.Model):
 
     def __str__(self):
         return ("Milestones for property %s: %s"%self._property.id)
+
+# reminders
+class Reminders(models.Model):
+    _property = models.OneToOneField(Property)
+    reminders_message = models.TextField(blank=True, null=True, max_length=200)
+    reminders_date = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return ("reminders for property %s: %s"%self._property.id)
