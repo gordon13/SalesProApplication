@@ -11,13 +11,17 @@ from django.template import RequestContext
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm
-from .models import Agent, Property, Milestone, Buyer, Seller
+from .models import Agent, Property, Milestone, Buyer, Seller, Reminder
 
 @login_required
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    properties = Property.objects.all()
+    properties = Property.objects.filter(agent__user_id=request.user.id)
+    
+    reminders = []
+    for property_obj in properties:
+        reminders.append(property_obj.reminders)
 
     return render(
         request,
@@ -26,6 +30,7 @@ def home(request):
         {
             'title':'Main Dashboard',
             'properties':properties,
+            'reminders':reminders,
             'year':datetime.now().year,
         })
     )
@@ -238,15 +243,15 @@ def milestones(request):
     """Check if user is a buyer or a seller. User should only be either one. Never both"""
     buyer = Buyer.objects.filter(user_id=request.user.id).first() # Returns object, or None
     seller = Seller.objects.filter(user_id=request.user.id).first() # Returns object, or None
-    #property_id = buyer._property_id
+    #property_id = buyer.property_obj_id
     
     # If either seller or buyer is not None, then get the id of which ever is valid
     if (buyer is not None):
-        _property = buyer._property
-        property_id = _property.id
+        property_obj = buyer.property_obj
+        property_id = property_obj.id
     elif (seller is not None):
-        _property = seller._property
-        property_id = _property.id
+        property_obj = seller.property_obj
+        property_id = property_obj.id
     else:
         print("Buyer/Seller for user not found")
 
@@ -266,7 +271,7 @@ def milestones(request):
         context_instance = RequestContext(request,
         {
             'title':'Milestones',
-            'property':_property,
+            'property':property_obj,
             'milestones':milestones,
             'percentage':percentage,
             'year':datetime.now().year,

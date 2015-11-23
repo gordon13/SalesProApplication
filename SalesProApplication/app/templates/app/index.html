@@ -4,7 +4,9 @@
 <div class="row">
     <div id="col-style" class="col-sm-4">
         <h2>Reminders</h2>
-
+        {% for reminder in reminders %}
+            <li><a href="javascript:void(0)">{{reminder.reminders_date}} - Ref: {{reminder.property_obj.id}} - {{reminder.reminders_message}}</a></li>
+        {% endfor %}
     </div>
     <div class="col-sm-7">
         <div id="col-style-inner" class="col-sm-11">

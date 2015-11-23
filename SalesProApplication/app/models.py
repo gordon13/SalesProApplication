@@ -34,7 +34,8 @@ class Progressor(models.Model):
         return (self.first_name + " " + self.last_name)
 
 class Agent(models.Model):
-    progressor = models.ForeignKey(Progressor, default=0)
+    user = models.ForeignKey(User, blank=True, null=True)
+    progressor = models.ForeignKey(Progressor, blank=True, null=True, default=0)
     company_name = models.CharField(blank=True, null=True, max_length=20)
     contact_first_name = models.CharField(blank=True, null=True, max_length=20)
     contact_last_name = models.CharField(blank=True, null=True, max_length=20)
@@ -64,34 +65,34 @@ class Property(models.Model):
     def __str__(self):
         return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, self.postcode, self.agent,))
 
-Property.milestones = property(lambda u: Milestone.objects.get_or_create(_property=u)[0])
+Property.milestones = property(lambda u: Milestone.objects.get_or_create(property_obj=u)[0])
 
 class Seller(models.Model):
     user = models.ForeignKey(User, blank=True, null=True) 
-    _property = models.ForeignKey(Property, blank=True, null=True)
+    property_obj = models.ForeignKey(Property, blank=True, null=True)
     first_name = models.CharField(blank=True, null=True, max_length=20)
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
-        return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self._property.address_line_1))
+        return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self.property_obj.address_line_1))
 
 class Buyer(models.Model):
     user = models.ForeignKey(User, blank=True, null=True) 
-    _property = models.ForeignKey(Property, blank=True, null=True)
+    property_obj = models.ForeignKey(Property, blank=True, null=True)
     first_name = models.CharField(blank=True, null=True, max_length=20)
     last_name = models.CharField(blank=True, null=True, max_length=20)
     telephone = models.IntegerField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
-        return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self._property.address_line_1))
+        return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self.property_obj.address_line_1))
 
 
 # Milestones
 class Milestone(models.Model):
-    _property = models.OneToOneField(Property)
+    property_obj = models.OneToOneField(Property)
     milestone1 = models.BooleanField(blank=True, default=False)
     milestone2 = models.BooleanField(blank=True, default=False)
     milestone3 = models.BooleanField(blank=True, default=False)
@@ -99,13 +100,15 @@ class Milestone(models.Model):
     milestone5 = models.BooleanField(blank=True, default=False)
 
     def __str__(self):
-        return ("Milestones for property %s: %s"%self._property.id)
+        return ("Milestones for property %s: %s"%self.property_obj.id)
 
 # reminders
-class Reminders(models.Model):
-    _property = models.OneToOneField(Property)
+class Reminder(models.Model):
+    property_obj = models.OneToOneField(Property, blank=True, null=True)
     reminders_message = models.TextField(blank=True, null=True, max_length=200)
     reminders_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return ("reminders for property %s: %s"%self._property.id)
+        return ("Reminders for property %s"%self.property_obj.id)
+
+Property.reminders = property(lambda u: Reminder.objects.get_or_create(property_obj=u)[0])
