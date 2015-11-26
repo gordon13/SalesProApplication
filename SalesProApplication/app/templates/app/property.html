@@ -1,6 +1,7 @@
 ﻿{% extends "app/layout.html" %}
 
 {% block content %}
+{{ property_form.media }}
 <div class="row">
     <div id="col-style" class="col-sm-4">
         <h2>Milestones</h2>
@@ -11,6 +12,7 @@
             <li>Milestone 4 - {% if milestones.milestone4 == True %}Complete{% else %}Pending{% endif %}</li>
             <li>Milestone 5 - {% if milestones.milestone5 == True %}Complete{% else %}Pending{% endif %}</li>
         </ul>
+        {{milestones_form}}
     </div>
     <div class="col-sm-7">
         <a href="{% url 'chain' %}">

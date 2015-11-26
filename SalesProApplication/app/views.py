@@ -10,7 +10,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 
-from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm
+from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm
 from .models import Agent, Property, Milestone, Buyer, Seller
 
 @login_required
@@ -24,9 +24,7 @@ def home(request):
     reminders = []
     if properties and milestones:
         for property_obj in properties:
-            print(property_obj.id)
             milestone = milestones.get(property_obj_id=property_obj.id)
-            print(milestone.date1)
             reminders.append(milestone)
 
     return render(
@@ -169,6 +167,24 @@ def property(request, property_id):
     assert isinstance(request, HttpRequest)
 
     milestones = Property.objects.get(pk=property_id).milestones
+    milestones_form = MilestoneForm()
+    if request.method == 'POST': # If the form has been submitted...
+        print("Post")
+        #seller_form = SellerForm(request.POST) # A form bound to the POST data
+        milestones_form = MilestoneForm(request.POST) # A form bound to the POST data
+
+        print(request.POST)
+        if seller_form.is_valid(): # All validation rules pass
+            print("Forms are valid")
+            return HttpResponseRedirect('/property/'+property_id) # Redirect after POST
+        else:
+            print("Form/s not valid")
+            print(milestones_form.errors)
+    else:
+        print("Get")
+        milestones_form = MilestoneForm()
+
+
 
     return render(
         request,
@@ -176,6 +192,7 @@ def property(request, property_id):
         context_instance = RequestContext(request,
         {
             'title':'Property Information',
+            'milestones_form': milestones_form,
             'property':property_id,
             'year':datetime.now().year,
         })

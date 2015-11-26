@@ -6,6 +6,10 @@
         <h2>Reminders</h2>
         {% for reminder in reminders %}
             <li><a href="javascript:void(0)">{{reminder.date1}} - Ref: {{reminder.property_obj.id}} - {{reminder.message1}}</a></li>
+            <li><a href="javascript:void(0)">{{reminder.date2}} - Ref: {{reminder.property_obj.id}} - {{reminder.message2}}</a></li>
+            <li><a href="javascript:void(0)">{{reminder.date3}} - Ref: {{reminder.property_obj.id}} - {{reminder.message3}}</a></li>
+            <li><a href="javascript:void(0)">{{reminder.date4}} - Ref: {{reminder.property_obj.id}} - {{reminder.message4}}</a></li>
+            <li><a href="javascript:void(0)">{{reminder.date5}} - Ref: {{reminder.property_obj.id}} - {{reminder.message5}}</a></li>
         {% endfor %}
     </div>
     <div class="col-sm-7">
