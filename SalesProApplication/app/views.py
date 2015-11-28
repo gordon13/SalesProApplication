@@ -2,6 +2,7 @@
 Definition of views.
 """
 
+import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.forms.models import model_to_dict
@@ -13,14 +14,26 @@ from datetime import datetime
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm
 from .models import Agent, Property, Milestone, Buyer, Seller
 
+# Entry point of application. Redirects user to appropriate page
+def user_redirect(request):
+    user = request.user
+    print(user.is_authenticated)
+    assert isinstance(request, HttpRequest)
+    if user.is_authenticated():
+        if user.profile.user_type != 3 and user.profile.user_type is not None:
+            return HttpResponseRedirect('/home') # Redirect after POST
+        else:
+            return HttpResponseRedirect('/milestones') # Redirect after POST
+    else:
+        return HttpResponseRedirect('/login') # Redirect after POST
+
 @login_required
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+
     properties = Property.objects.filter(agent__user_id=request.user.id)
     milestones = Milestone.objects.all()
-
-
     reminders = []
     if properties and milestones:
         for property_obj in properties:
@@ -167,7 +180,6 @@ def property(request, property_id):
     assert isinstance(request, HttpRequest)
 
     milestones = Property.objects.get(pk=property_id).milestones
-    milestones_form = MilestoneForm()
     if request.method == 'POST': # If the form has been submitted...
         print("Post")
         #seller_form = SellerForm(request.POST) # A form bound to the POST data
@@ -182,9 +194,7 @@ def property(request, property_id):
             print(milestones_form.errors)
     else:
         print("Get")
-        milestones_form = MilestoneForm()
-
-
+        milestones_form = MilestoneForm(instance=milestones)
 
     return render(
         request,
@@ -193,7 +203,7 @@ def property(request, property_id):
         {
             'title':'Property Information',
             'milestones_form': milestones_form,
-            'property':property_id,
+            'property_id':property_id,
             'year':datetime.now().year,
         })
     )
@@ -343,19 +353,14 @@ def pipeline(request):
         })
     )
 
-def user_redirect(request):
-    user = request.user
-    print(user.is_authenticated)
-    assert isinstance(request, HttpRequest)
-    if user.is_authenticated():
-        if user.profile.user_type != 3 and user.profile.user_type is not None:
-            return HttpResponseRedirect('/home') # Redirect after POST
-        else:
-            return HttpResponseRedirect('/milestones') # Redirect after POST
-    else:
-        return HttpResponseRedirect('/login') # Redirect after POST
 
-# Non page based views. e.g. return data like the properties etc
+
+
+
+
+""" 
+Non page based views. e.g. return data like the properties etc
+"""
 @login_required
 def get_properties(request, agent_id):
     """Renders the pipeline page."""
@@ -368,3 +373,26 @@ def get_properties(request, agent_id):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+
+@login_required
+def update_milestones(request, property_id):
+    """Renders the pipeline page."""
+    if request.method == 'POST':
+        print(request.POST)
+        milestone_form = MilestoneForm(request.POST) # A form bound to the POST data        
+        if milestone_form.is_valid(): # All validation rules pass
+            print("Form is valid")
+            form = milestone_form.save()
+            return HttpResponse(
+                json.dumps({"status": "success", "message":"Milestones updated"}),
+                content_type="application/json"
+            )
+        else:
+            print("Form/s not valid")
+            print(milestone_form.errors)
+            return HttpResponse(
+                json.dumps({"status": "failure", "message":"Milestones NOT updated..."}),
+                content_type="application/json"
+            )
+
+        return HttpResponse(html)

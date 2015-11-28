@@ -15,8 +15,7 @@ from django.views.generic.base import RedirectView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'app.views.user_redirect', name='user_redirect'),
+    # App pages
     url(r'^home$', 'app.views.home', name='home'),
     url(r'^add_progressor$', 'app.views.add_progressor', name='add_progressor'),
     url(r'^add_agent$', 'app.views.add_agent', name='add_agent'),
@@ -26,14 +25,19 @@ urlpatterns = patterns('',
     url(r'^exchanges$', 'app.views.exchanges', name='exchanges'),
     url(r'^property/(?P<property_id>[0-9]+)/$', 'app.views.property', name='property'),
     url(r'^new$', 'app.views.new', name='new'),
-    
     url(r'^milestones$', 'app.views.milestones', name='milestones'),
-
     url(r'^chain$', 'app.views.chain', name='chain'),
     url(r'^pipeline$', 'app.views.pipeline', name='pipeline'),
     url(r'^report$', 'app.views.report', name='report'),
-    url(r'^get_properties/(?P<agent_id>[0-9]+)/$', 'app.views.get_properties', name='get_properties'),
 
+    # used by ajax
+    url(r'^get_properties/(?P<agent_id>[0-9]+)/$', 'app.views.get_properties', name='get_properties'),
+    url(r'^update_milestones/(?P<property_id>[0-9]+)/$', 'app.views.update_milestones', name='update_milestones'),
+
+    # Used to redirect the user to their respective page
+    url(r'^$', 'app.views.user_redirect', name='user_redirect'),
+
+    # Authentication
     url(r'^login/$',
         'django.contrib.auth.views.login',
         {

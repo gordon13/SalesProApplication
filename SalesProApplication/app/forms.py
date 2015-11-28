@@ -91,7 +91,7 @@ class PropertyForm(forms.ModelForm):
 class MilestoneForm(forms.ModelForm):
     class Meta:
         model = Milestone
-        exclude = ['id', 'property_obj']
+        exclude = ['id']
     
 
     def __init__(self, *args, **kwargs):
