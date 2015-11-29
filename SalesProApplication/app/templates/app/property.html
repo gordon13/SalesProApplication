@@ -62,13 +62,19 @@
                 },
                 data: $form.serialize(),
                 success: successFunc,
+                failure: failureFunc,
                 dataType: 'html'
             });
         });
     });
+    
+    // Use this function to do stuff if milestone update is successful
     function successFunc(data, textStatus, jqXHR) {
         console.log(data)
-        console.log("Nice!")
+    }
+    // Use this function to do stuff if not successful. For example show validation messages?
+    function failureFunc(data, textStatus, jqXHR) {
+        console.log(data)
     }
 </script>
 

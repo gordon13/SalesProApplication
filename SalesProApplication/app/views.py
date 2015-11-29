@@ -378,8 +378,13 @@ def get_properties(request, agent_id):
 def update_milestones(request, property_id):
     """Renders the pipeline page."""
     if request.method == 'POST':
-        print(request.POST)
-        milestone_form = MilestoneForm(request.POST) # A form bound to the POST data        
+        """ 
+        Need to get the current milestones object of the property (even if it is currently empty).
+        And then we can feed that into the modelForm along with the POST data to update the data for those milestones
+        """
+        current_milestones = Milestone.objects.get(property_obj__id=property_id) # milestones for the property
+        milestone_form = MilestoneForm(request.POST, instance=current_milestones) # A form bound to the POST data AND the current milestones of the property       
+
         if milestone_form.is_valid(): # All validation rules pass
             print("Form is valid")
             form = milestone_form.save()
@@ -387,7 +392,7 @@ def update_milestones(request, property_id):
                 json.dumps({"status": "success", "message":"Milestones updated"}),
                 content_type="application/json"
             )
-        else:
+        else: #validation fails
             print("Form/s not valid")
             print(milestone_form.errors)
             return HttpResponse(
