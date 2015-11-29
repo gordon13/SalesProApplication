@@ -288,16 +288,16 @@ def milestones(request):
     else:
         print("Buyer/Seller for user not found")
 
+    milestones = get_object_or_404(Property, pk=property_id).milestones
+    #milestones = Property.objects.get(pk=property_id).milestones
 
-    
-    milestones = Property.objects.get(pk=property_id).milestones
+    """
+    Calculate percentage complete by summing the 'true' values
+    """
+    milestones_arr  = [milestones.milestone1, milestones.milestone2, milestones.milestone3, milestones.milestone4, milestones.milestone5]
+    done            = sum(milestones_arr)
+    percentage      = done / len(milestones_arr) * 100
 
-    """Calculate percentage complete by summing the 'true' values"""
-    total   = 5
-    done    = sum([milestones.milestone1, True, milestones.milestone3, milestones.milestone4, True])
-    print(done)
-    percentage = done / total * 100
-    print(percentage)
     return render(
         request,
         'app/milestones.html',
@@ -370,7 +370,7 @@ def get_properties(request, agent_id):
         return HttpResponse(html)
     else:
         return HttpResponse(
-            json.dumps({"nothing to see": "this isn't happening"}),
+            json.dumps({"status": "success", "message":"Got properties"}),
             content_type="application/json"
         )
 

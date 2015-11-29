@@ -51,9 +51,9 @@
     //=================== SCRIPT =================================//
     // This is the ajax bit that updates the milestones model dynamically when the agent enteres data
     var $form = $("#milestone-form");
-    $form.find("[type='checkbox']").each(function () {
+    $form.find("[type='checkbox'], input, textarea").each(function () {
         var property_id = $form.data("property-id");
-        $(this).on("click", function () {
+        $(this).on("change", function () {
             $.ajax({
                 type: "POST",
                 url: '/update_milestones/' + property_id + '/',
@@ -67,7 +67,7 @@
             });
         });
     });
-    
+
     // Use this function to do stuff if milestone update is successful
     function successFunc(data, textStatus, jqXHR) {
         console.log(data)
