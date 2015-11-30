@@ -3,26 +3,28 @@
 {% block content %}
 {{ property_form.media }}
 <div class="row">
-    <div class="col-md-12">
-        <section id="new-property-section" class="form-horizontal" >
-            <form method="POST" action="" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="col-md-4 ">
-                    <h4 class="form-header">Property</h4>
-                    {{property_form}}
+    <div <div id="col-style" class="col-md-10">     
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-3 ">
+                <h4 class="form-header">Property</h4>
+                {{property_form}}
+            </div>
+            <div class="col-md-3 ">
+                <h4 class="form-header">Finance</h4>
+                {{finance_form}}
+            </div>
+            <div class="col-md-3 ">
+                <h4 class="form-header">Seller</h4>
+                {{seller_form}}
+            </div>
+            <div class="row">
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Buyer</h4>
+                    {{buyer_form}}
                 </div>
-                <div class="col-md-4 ">
-                    <h4 class="form-header">Seller</h4>
-                    {{seller_form}}
-                </div>
-                <div class="row">
-                    <div class="col-md-4 ">
-                        <h4 class="form-header">Buyer</h4>
-                        {{buyer_form}}
-                    </div>
-                </div> 
-            </form>
-        </section>
+            </div> 
+        </form>
         <input type="submit" class="btn btn-info " value="Add sale"/>
     </div>
 </div>
