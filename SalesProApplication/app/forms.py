@@ -73,6 +73,9 @@ class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = ['id']
+        widgets = {
+            'bootstrapField': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -4,46 +4,51 @@
 {{ milestones_form.media }}
 <div class="row">
     <div id="col-style" class="col-sm-4">
-        <h2>Milestones</h2>
-        <form id="milestone-form" data-property-id="{{property_id}}">
+        <h1>Milestones</h1>
+        <form id="milestone-form" class="form-group" data-property-id="{{property_id}}">
             {% csrf_token %}
             {{milestones_form.errors}}
             <div style="display:none">{{milestones_form.property_obj}}</div>
-            <li id="milestone1">{{milestones_form.milestone1.label}} {{milestones_form.milestone1}} - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li class="milestone" id="milestone1">{{milestones_form.milestone1.label}} {{milestones_form.milestone1}} - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <br />
             <div>
                 {{milestones_form.date1.label}} {{milestones_form.date1}}<br>
-                {{milestones_form.message1}}
+                {{milestones_form.message1}}<hr />
             </div>
-            <li id="milestone2">{{milestones_form.milestone2.label}} {{milestones_form.milestone2}} - {% if milestones.milestone2 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li class="milestone" id="milestone1">{{milestones_form.milestone1.label}} {{milestones_form.milestone1}} - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <br />
             <div>
                 {{milestones_form.date2.label}} {{milestones_form.date2}}<br>
-                {{milestones_form.message2}}
+                {{milestones_form.message2}}<hr />
             </div>
-            <li id="milestone3">{{milestones_form.milestone3.label}} {{milestones_form.milestone3}} - {% if milestones.milestone3 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li class="milestone" id="milestone1">{{milestones_form.milestone1.label}} {{milestones_form.milestone1}} - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <br />
             <div>
                 {{milestones_form.date3.label}} {{milestones_form.date3}}<br>
-                {{milestones_form.message3}}
+                {{milestones_form.message3}}<hr />
             </div>
-            <li id="milestone4">{{milestones_form.milestone4.label}} {{milestones_form.milestone4}} - {% if milestones.milestone4 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li class="milestone" id="milestone1">{{milestones_form.milestone1.label}} {{milestones_form.milestone1}} - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <br />
             <div>
                 {{milestones_form.date4.label}} {{milestones_form.date4}}<br>
-                {{milestones_form.message4}}
+                {{milestones_form.message4}}<hr />
             </div>
-            <li id="milestone5">{{milestones_form.milestone5.label}} {{milestones_form.milestone5}} - {% if milestones.milestone5 == True %}Complete{% else %}Pending{% endif %}</li>
+            <li class="milestone" id="milestone1">{{milestones_form.milestone1.label}} {{milestones_form.milestone1}} - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
+            <br />
             <div>
                 {{milestones_form.date5.label}} {{milestones_form.date5}}<br>
-                {{milestones_form.message5}}
-            </div>
+                {{milestones_form.message5}}<hr />
+            </div>        
         </form>
     </div>
     <div class="col-sm-7">
         <a href="{% url 'chain' %}">
             <div id="col-style-inner" class="col-sm-11">
-                <h2>Chain</h2>
+                <h1>Chain</h1>
                 Property: {{property_id}}
             </div>
         </a>
-        <a a href="{% url 'report' %}"><div id="col-style-inner" class="col-sm-11"><h2>Report</h2></div></a>        
+        <a a href="{% url 'report' %}"><div id="col-style-inner" class="col-sm-11"><h1>Report</h1></div></a>        
     </div>
 </div>
 

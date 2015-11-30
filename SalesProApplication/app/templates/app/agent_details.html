@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
     <div id="col-style" class="col-sm-4">
-        <h2>Pipeline</h2>
+        <h1>Pipeline</h1>
         {% if pipeline %}
             <ul>
                 {% for property in pipeline %}
@@ -14,6 +14,6 @@
             No properties assigned to this agent
         {% endif %}
     </div>
-    <a href="{% url 'new' %}"><div id="col-style" class="col-sm-6"><h2>Add Sale</h2></div></a>
+    <a href="{% url 'new' %}"><div id="col-style" class="col-sm-6"><h1>Add Sale</h1></div></a>
 </div>
 {% endblock %}
