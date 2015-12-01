@@ -3,12 +3,12 @@ Definition of views.
 """
 
 import json
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
-from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.template.loader import render_to_string
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.forms.models import model_to_dict
+from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm
@@ -52,7 +52,9 @@ def home(request):
         })
     )
 
+
 @login_required
+@user_passes_test(lambda u: u.profile.user_type == 0, login_url='/login')
 def add_progressor(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
@@ -83,6 +85,7 @@ def add_progressor(request):
     )
 
 @login_required
+@user_passes_test(lambda u: u.profile.user_type == 0, login_url='/login')
 def add_agent(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
@@ -113,6 +116,7 @@ def add_agent(request):
     )
 
 @login_required
+@user_passes_test(lambda u: u.profile.user_type == 1, login_url='/login')
 def agent_details(request, agent_id):
     """Renders the agents page."""
     assert isinstance(request, HttpRequest)
@@ -131,6 +135,7 @@ def agent_details(request, agent_id):
     )
 
 @login_required
+@user_passes_test(lambda u: u.profile.user_type == 0, login_url='/login')
 def agents(request):
     """Renders the agents page."""
     assert isinstance(request, HttpRequest)
@@ -175,6 +180,7 @@ def exchanges(request):
     )
 
 @login_required
+@user_passes_test(lambda u: u.profile.user_type == 1, login_url='/login')
 def property(request, property_id):
     """Renders the property page."""
     assert isinstance(request, HttpRequest)
@@ -209,6 +215,7 @@ def property(request, property_id):
     )
 
 @login_required
+@user_passes_test(lambda u: u.profile.user_type == 1, login_url='/login')
 def new(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
@@ -268,6 +275,7 @@ def new(request):
     )
 
 @login_required
+@user_passes_test(lambda u: u.profile.user_type == 3, login_url='/login')
 def milestones(request):
     """Renders the milestones page."""
     assert isinstance(request, HttpRequest)
