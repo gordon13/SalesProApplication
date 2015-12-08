@@ -24,7 +24,7 @@ class BootstrapAuthenticationForm(AuthenticationForm):
 class SellerForm(forms.ModelForm):
     class Meta:
         model = Seller
-        exclude = ['id', 'property']
+        exclude = ['id', 'property_obj', 'user']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -36,7 +36,7 @@ class SellerForm(forms.ModelForm):
 class BuyerForm(forms.ModelForm):
     class Meta:
         model = Buyer
-        exclude = ['id', 'property']
+        exclude = ['id', 'property_obj', 'user']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -72,7 +72,7 @@ class AgentForm(forms.ModelForm):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        exclude = ['id']
+        exclude = ['id', 'agent']
         widgets = {
             'bootstrapField': forms.TextInput(attrs={'class': 'form-control'}),
         }
