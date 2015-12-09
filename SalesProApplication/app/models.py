@@ -1,6 +1,7 @@
 ﻿from django.contrib.auth.models import User
 from django.db import models
 
+
 ACC_TYPES = (
     (0, 'Manager'),
     (1, 'Agent'),

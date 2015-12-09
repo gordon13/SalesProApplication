@@ -3,6 +3,7 @@ Definition of views.
 """
 
 import json
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
@@ -17,7 +18,6 @@ from .models import Agent, Property, Milestone, Buyer, Seller
 # Entry point of application. Redirects user to appropriate page
 def user_redirect(request):
     user = request.user
-    print(user.is_authenticated)
     assert isinstance(request, HttpRequest)
     if user.is_authenticated():
         if user.profile.user_type != 3 and user.profile.user_type is not None:
@@ -61,17 +61,17 @@ def user_profile(request):
         print("Post")
         print(request.POST)
 
-        profile_form = ProfileForm(request.POST, instance=request.user.profile) # A form bound to the POST data        
-        if profile_form.is_valid(): # All validation rules pass
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)     
+        if profile_form.is_valid():
             print("Form is valid")
             profile_form.save()
-            return HttpResponseRedirect('/user_profile') # Redirect after POST
+            return HttpResponseRedirect('/user_profile')
         else:
             print("Form/s not valid")
             print(profile_form.errors)
     else:
         print("Get")
-        profile_form = ProfileForm(instance=request.user.profile) # Initialise empty forms
+        profile_form = ProfileForm(instance=request.user.profile)
 
     return render(
         request,
@@ -246,6 +246,7 @@ def property(request, property_id):
         })
     )
 
+
 @login_required
 @user_passes_test(lambda u: u.profile.user_type == 1, login_url='/login')
 def new(request):
@@ -256,6 +257,7 @@ def new(request):
         print("Post")
         seller_form = SellerForm(request.POST) # A form bound to the POST data
         buyer_form = BuyerForm(request.POST)
+
         property_form = PropertyForm(request.POST)
         
 #        property_form.agent = Agent.objects.get(id=agent_form.id)
@@ -264,8 +266,6 @@ def new(request):
             print("Forms are valid")
 
             property_obj = property_form.save() # Fake save in order to get form as an object
-            print(property_obj.id)
-            print(property_obj.pk)
             tmp_seller_form = seller_form.save(commit=False)
             tmp_seller_form.property = property_obj
             
@@ -290,7 +290,10 @@ def new(request):
     else:
         print("Get")
         seller_form = SellerForm() # Initialise empty forms
+        user_seller_form = UserCreationForm(prefix='user_seller')
+        #upf = UserProfileForm(prefix='userprofile_')
         buyer_form = BuyerForm()
+        user_buyer_form = UserCreationForm(prefix='user_buyer')
         property_form = PropertyForm()
 
     return render(
@@ -300,7 +303,9 @@ def new(request):
         {
             'title':'New Sale',
             'seller_form':seller_form,
+            'user_seller_form':user_seller_form,
             'buyer_form':buyer_form,
+            'user_buyer_form':user_buyer_form,
             'property_form':property_form,
             'year':datetime.now().year,
         })
@@ -401,6 +406,7 @@ def pipeline(request):
 """ 
 Non page based views. e.g. return data like the properties etc
 """
+
 @login_required
 def get_properties(request, agent_id):
     """Renders the pipeline page."""
