@@ -17,6 +17,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # App pages
     url(r'^home$', 'app.views.home', name='home'),
+    url(r'^user_profile$', 'app.views.user_profile', name='user_profile'),
     url(r'^add_progressor$', 'app.views.add_progressor', name='add_progressor'),
     url(r'^add_agent$', 'app.views.add_agent', name='add_agent'),
     url(r'^agents$', 'app.views.agents', name='agents'),

@@ -11,7 +11,7 @@ from django.template import RequestContext
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from datetime import datetime
 
-from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm
+from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm, ProfileForm
 from .models import Agent, Property, Milestone, Buyer, Seller
 
 # Entry point of application. Redirects user to appropriate page
@@ -29,7 +29,7 @@ def user_redirect(request):
 
 @login_required
 def home(request):
-    """Renders the home page."""
+    """Renders the dashboard."""
     assert isinstance(request, HttpRequest)
 
     properties = Property.objects.filter(agent__user_id=request.user.id)
@@ -49,6 +49,38 @@ def home(request):
             'properties':properties,
             'reminders':reminders,
             'year':datetime.now().year,
+        })
+    )
+
+@login_required
+def user_profile(request):
+    """Renders the user_profile."""
+    assert isinstance(request, HttpRequest)
+
+    if request.method == 'POST': # If the form has been submitted...
+        print("Post")
+        print(request.POST)
+
+        profile_form = ProfileForm(request.POST, instance=request.user.profile) # A form bound to the POST data        
+        if profile_form.is_valid(): # All validation rules pass
+            print("Form is valid")
+            profile_form.save()
+            return HttpResponseRedirect('/user_profile') # Redirect after POST
+        else:
+            print("Form/s not valid")
+            print(profile_form.errors)
+    else:
+        print("Get")
+        profile_form = ProfileForm(instance=request.user.profile) # Initialise empty forms
+
+    return render(
+        request,
+        'app/user_profile.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'User profile',
+            'profile_form':profile_form,
+
         })
     )
 
