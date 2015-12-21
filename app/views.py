@@ -13,7 +13,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm, ProfileForm
-from .models import Agent, Property, Milestone, Buyer, Seller
+from .models import Agent, Property, Milestone, Buyer, Seller, UserProfile
 
 # Entry point of application. Redirects user to appropriate page
 def user_redirect(request):
@@ -35,8 +35,10 @@ def home(request):
     properties = Property.objects.filter(agent__user_id=request.user.id)
     milestones = Milestone.objects.all()
     reminders = []
+
     if properties and milestones:
         for property_obj in properties:
+            print(property_obj.id)
             milestone = milestones.get(property_obj_id=property_obj.id)
             reminders.append(milestone)
 
@@ -252,35 +254,64 @@ def property(request, property_id):
 def new(request):
     """Renders the new page."""
     assert isinstance(request, HttpRequest)
-   
+    
+    #get current user. should be an agent
+    user = request.user
+
     if request.method == 'POST': # If the form has been submitted...
         print("Post")
+        property_form = PropertyForm(request.POST)
+        user_seller_form = UserCreationForm(request.POST, prefix='user_seller')
+        user_buyer_form = UserCreationForm(request.POST, prefix='user_buyer')
         seller_form = SellerForm(request.POST) # A form bound to the POST data
         buyer_form = BuyerForm(request.POST)
-
-        property_form = PropertyForm(request.POST)
         
 #        property_form.agent = Agent.objects.get(id=agent_form.id)
-        print(request.POST)
-        if seller_form.is_valid() and buyer_form.is_valid() and property_form.is_valid(): # All validation rules pass
+        if seller_form.is_valid() and buyer_form.is_valid() and property_form.is_valid() and user_seller_form.is_valid() and user_buyer_form.is_valid(): # All validation rules pass
             print("Forms are valid")
 
-            property_obj = property_form.save() # Fake save in order to get form as an object
+            tmp_property_form = property_form.save(commit=False) # Fake save in order to get form as an object
+            tmp_property_form.agent = Agent.objects.get(user=user)
+            tmp_property_form.save() # final save to database
+
+            #save users as objects
+            user_seller_form = user_seller_form.save()
+            user_buyer_form = user_buyer_form.save()
+
+            if tmp_property_form.id == None:
+                print("no property id found")
+                
+            #fake save user seller/buyer forms
             tmp_seller_form = seller_form.save(commit=False)
-            tmp_seller_form.property = property_obj
+            tmp_seller_form.property_obj_id = tmp_property_form.id
+            tmp_seller_form.user_id = user_seller_form.id
             
             tmp_buyer_form = buyer_form.save(commit=False)
-            tmp_buyer_form.property = property_obj
-           
-            print(request.POST)
+            tmp_buyer_form.property_obj_id = tmp_property_form.id
+            tmp_buyer_form.user_id = user_buyer_form.id
 
-            property_form.save() # Fake save to get form as an object
+            #update seller user profile
+            user_seller_form.profile.user_id=user_seller_form.id, 
+            user_seller_form.profile.user_type=1, 
+            user_seller_form.profile.first_name=tmp_seller_form.first_name, 
+            user_seller_form.profile.last_name=tmp_seller_form.last_name,
+            user_seller_form.profile.telephone=tmp_seller_form.telephone,
+            user_seller_form.profile.email_address=tmp_seller_form.email
+            
+            #update seller user profile
+            user_buyer_form.profile.user_id = user_buyer_form.id, 
+            user_buyer_form.profile.user_type=1, 
+            user_buyer_form.profile.first_name=tmp_buyer_form.first_name, 
+            user_buyer_form.profile.last_name=tmp_buyer_form.last_name,
+            user_buyer_form.profile.telephone=tmp_buyer_form.telephone,
+            user_buyer_form.profile.email_address=tmp_buyer_form.email
+
             tmp_seller_form.save()
             tmp_buyer_form.save()
            
 
             print("Forms successfully saved to database")
-            return HttpResponseRedirect('/agents') # Redirect after POST
+            return HttpResponseRedirect('/') # Redirect after POST
         else:
             print("Form/s not valid")
             print(seller_form.errors)
@@ -291,7 +322,6 @@ def new(request):
         print("Get")
         seller_form = SellerForm() # Initialise empty forms
         user_seller_form = UserCreationForm(prefix='user_seller')
-        #upf = UserProfileForm(prefix='userprofile_')
         buyer_form = BuyerForm()
         user_buyer_form = UserCreationForm(prefix='user_buyer')
         property_form = PropertyForm()
@@ -324,24 +354,29 @@ def milestones(request):
     #property_id = buyer.property_obj_id
     
     # If either seller or buyer is not None, then get the id of which ever is valid
-    if (buyer is not None):
+    if (buyer is not None and buyer.property_obj is not None):
         property_obj = buyer.property_obj
         property_id = property_obj.id
-    elif (seller is not None):
+    elif (seller is not None and seller.property_obj is not None):
         property_obj = seller.property_obj
         property_id = property_obj.id
     else:
+        property_id = None
+        property_obj = None
+        milestones = None
         print("Buyer/Seller for user not found")
+    
+    if property_id is not None and milestones is not None:
+        milestones = get_object_or_404(Property, pk=property_id).milestones
 
-    milestones = get_object_or_404(Property, pk=property_id).milestones
-    #milestones = Property.objects.get(pk=property_id).milestones
-
-    """
-    Calculate percentage complete by summing the 'true' values
-    """
-    milestones_arr  = [milestones.milestone1, milestones.milestone2, milestones.milestone3, milestones.milestone4, milestones.milestone5]
-    done            = sum(milestones_arr)
-    percentage      = done / len(milestones_arr) * 100
+        """
+        Calculate percentage complete by summing the 'true' values
+        """
+        milestones_arr  = [milestones.milestone1, milestones.milestone2, milestones.milestone3, milestones.milestone4, milestones.milestone5]
+        done            = sum(milestones_arr)
+        percentage      = done / len(milestones_arr) * 100
+    else:
+        percentage = 0
 
     return render(
         request,
