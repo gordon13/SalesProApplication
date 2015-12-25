@@ -31,7 +31,7 @@
             <h1>Properties</h1>
                 {% if properties %}
                     {% for property in properties %}
-                        <li><a href="{% url 'property' property.id %}">Ref: {{property.id}} - {{property}}</a></li>
+                        <li><a href="{% url 'property' property.id %}">Ref: {{property.id}} - {{property.address_line_1}}, {{property.address_line_2}}, {{property.address_line_3}}, {{property.postcode}}</a></li>
                     {% endfor %}
                 {% else %}
                     No properties for this agent

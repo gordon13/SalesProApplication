@@ -44,7 +44,7 @@ class Agent(models.Model):
     email_address = models.EmailField(blank=True, null=True)
     
     def __str__(self):
-        return (self.contact_first_name + " " + self.contact_last_name)
+        return ("Agent: %s %s"%(self.contact_first_name, self.contact_last_name))
 
 class Property(models.Model):
     agent = models.ForeignKey(Agent) 
@@ -71,10 +71,6 @@ Property.milestones = property(lambda u: Milestone.objects.get_or_create(propert
 class Seller(models.Model):
     user = models.ForeignKey(User, blank=True, null=True) 
     property_obj = models.ForeignKey(Property, blank=True, null=True)
-    first_name = models.CharField(blank=True, null=True, max_length=20)
-    last_name = models.CharField(blank=True, null=True, max_length=20)
-    telephone = models.IntegerField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
         return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self.property_obj.address_line_1))
@@ -82,10 +78,6 @@ class Seller(models.Model):
 class Buyer(models.Model):
     user = models.ForeignKey(User, blank=True, null=True) 
     property_obj = models.ForeignKey(Property, blank=True, null=True)
-    first_name = models.CharField(blank=True, null=True, max_length=20)
-    last_name = models.CharField(blank=True, null=True, max_length=20)
-    telephone = models.IntegerField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
         return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self.property_obj.address_line_1))

@@ -291,20 +291,20 @@ def new(request):
             tmp_buyer_form.user_id = user_buyer_form.id
 
             #update seller user profile
-            user_seller_form.profile.user_id=user_seller_form.id, 
-            user_seller_form.profile.user_type=1, 
-            user_seller_form.profile.first_name=tmp_seller_form.first_name, 
-            user_seller_form.profile.last_name=tmp_seller_form.last_name,
-            user_seller_form.profile.telephone=tmp_seller_form.telephone,
-            user_seller_form.profile.email_address=tmp_seller_form.email
+            tmp_seller_form.user_id=user_seller_form.id, 
+            tmp_seller_form.profile.user_type=3, 
+            tmp_seller_form.profile.first_name=tmp_seller_form.first_name, 
+            tmp_seller_form.profile.last_name=tmp_seller_form.last_name,
+            tmp_seller_form.profile.telephone=tmp_seller_form.telephone,
+            tmp_seller_form.profile.email_address=tmp_seller_form.email
             
             #update seller user profile
-            user_buyer_form.profile.user_id = user_buyer_form.id, 
-            user_buyer_form.profile.user_type=1, 
-            user_buyer_form.profile.first_name=tmp_buyer_form.first_name, 
-            user_buyer_form.profile.last_name=tmp_buyer_form.last_name,
-            user_buyer_form.profile.telephone=tmp_buyer_form.telephone,
-            user_buyer_form.profile.email_address=tmp_buyer_form.email
+            tmp_buyer_form.profile.user_id = user_buyer_form.id, 
+            tmp_buyer_form.profile.user_type=3, 
+            tmp_buyer_form.profile.first_name=tmp_buyer_form.first_name, 
+            tmp_buyer_form.profile.last_name=tmp_buyer_form.last_name,
+            tmp_buyer_form.profile.telephone=tmp_buyer_form.telephone,
+            tmp_buyer_form.profile.email_address=tmp_buyer_form.email
 
             tmp_seller_form.save()
             tmp_buyer_form.save()
