@@ -21,30 +21,21 @@ class UserProfile(models.Model):
         return dict(ACC_TYPES)[self.user_type]
 
     def __str__(self):
-        return (self.user.username + "(" + str(ACC_TYPES[self.user_type][1]) + ")")
+        return ("%s(%s)"%(self.user.username, str(ACC_TYPES[self.user_type][1])))
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 class Progressor(models.Model):
-    first_name = models.CharField(blank=True, null=True, max_length=20)
-    last_name = models.CharField(blank=True, null=True, max_length=20)
-    telephone = models.IntegerField(blank=True, null=True)
-    email_address = models.EmailField(blank=True, null=True)
-    
+    user = models.ForeignKey(User, blank=True, null=True)
     def __str__(self):
-        return (self.first_name + " " + self.last_name)
+        return ("Progressor: %s %s"%(self.user.profile.first_name, self.user.profile.last_name))
 
 class Agent(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     progressor = models.ForeignKey(Progressor, blank=True, null=True, default=0)
-    company_name = models.CharField(blank=True, null=True, max_length=20)
-    contact_first_name = models.CharField(blank=True, null=True, max_length=20)
-    contact_last_name = models.CharField(blank=True, null=True, max_length=20)
-    telephone_agent = models.IntegerField(blank=True, null=True)
-    email_address = models.EmailField(blank=True, null=True)
     
     def __str__(self):
-        return ("Agent: %s %s"%(self.contact_first_name, self.contact_last_name))
+        return ("Agent: %s %s"%(self.user.profile.first_name, self.user.profile.last_name))
 
 class Property(models.Model):
     agent = models.ForeignKey(Agent) 
@@ -73,14 +64,14 @@ class Seller(models.Model):
     property_obj = models.ForeignKey(Property, blank=True, null=True)
 
     def __str__(self):
-        return ("Seller: %s, %s. Property: %s"%(self.first_name, self.last_name, self.property_obj.address_line_1))
+        return ("Seller: %s, %s. Property: %s"%(self.user.profile.first_name, self.user.profile.last_name, self.property_obj.address_line_1))
 
 class Buyer(models.Model):
     user = models.ForeignKey(User, blank=True, null=True) 
     property_obj = models.ForeignKey(Property, blank=True, null=True)
 
     def __str__(self):
-        return ("Buyer: %s, %s. Property: %s"%(self.first_name, self.last_name, self.property_obj.address_line_1))
+        return ("Buyer: %s, %s. Property: %s"%(self.user.profile.first_name, self.user.profile.last_name, self.property_obj.address_line_1))
 
 
 # Milestones

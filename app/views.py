@@ -5,9 +5,11 @@ Definition of views.
 import json
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 from django.template import RequestContext
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from datetime import datetime
@@ -36,11 +38,12 @@ def home(request):
     milestones = Milestone.objects.all()
     reminders = []
 
+    # dynamically create query to retrive the reminders/milestones
+    query = Q()
     if properties and milestones:
         for property_obj in properties:
-            print(property_obj.id)
-            milestone = milestones.get(property_obj_id=property_obj.id)
-            reminders.append(milestone)
+            query &= Q(property_obj_id=property_obj.id)
+    reminders = milestones.filter(query)
 
     return render(
         request,
@@ -260,14 +263,19 @@ def new(request):
 
     if request.method == 'POST': # If the form has been submitted...
         print("Post")
-        property_form = PropertyForm(request.POST)
+
+        seller_form = SellerForm(request.POST)
+        seller_profile_form = ProfileForm(request.POST, prefix='seller_profile') # A form bound to the POST data
         user_seller_form = UserCreationForm(request.POST, prefix='user_seller')
-        user_buyer_form = UserCreationForm(request.POST, prefix='user_buyer')
-        seller_form = SellerForm(request.POST) # A form bound to the POST data
-        buyer_form = BuyerForm(request.POST)
         
+        buyer_form = BuyerForm(request.POST)
+        buyer_profile_form = ProfileForm(request.POST, prefix='buyer_profile')
+        user_buyer_form = UserCreationForm(request.POST, prefix='user_buyer')
+
+        property_form = PropertyForm(request.POST)
+
 #        property_form.agent = Agent.objects.get(id=agent_form.id)
-        if seller_form.is_valid() and buyer_form.is_valid() and property_form.is_valid() and user_seller_form.is_valid() and user_buyer_form.is_valid(): # All validation rules pass
+        if seller_profile_form.is_valid() and buyer_profile_form.is_valid() and property_form.is_valid() and user_seller_form.is_valid() and user_buyer_form.is_valid() and seller_form.is_valid() and buyer_form.is_valid(): # All validation rules pass
             print("Forms are valid")
 
             tmp_property_form = property_form.save(commit=False) # Fake save in order to get form as an object
@@ -275,55 +283,51 @@ def new(request):
             tmp_property_form.save() # final save to database
 
             #save users as objects
-            user_seller_form = user_seller_form.save()
-            user_buyer_form = user_buyer_form.save()
+            tmp_user_seller_form = user_seller_form.save(commit=False)
 
-            if tmp_property_form.id == None:
-                print("no property id found")
-                
-            #fake save user seller/buyer forms
+            #set seller tables
             tmp_seller_form = seller_form.save(commit=False)
             tmp_seller_form.property_obj_id = tmp_property_form.id
-            tmp_seller_form.user_id = user_seller_form.id
-            
+            tmp_seller_form.user_id = tmp_user_seller_form.id
+            tmp_seller_form.save()
+            tmp_user_seller_form.save()
+
+            #update seller user profile
+            tmp_user_seller = User.objects.get(id=tmp_user_seller_form.id)
+            tmp_user_seller.profile.user_type = 3
+
+            #save users as objects
+            tmp_user_buyer_form = user_buyer_form.save(commit=False)
+
+            #set buyer tables
             tmp_buyer_form = buyer_form.save(commit=False)
             tmp_buyer_form.property_obj_id = tmp_property_form.id
-            tmp_buyer_form.user_id = user_buyer_form.id
-
-            #update seller user profile
-            tmp_seller_form.user_id=user_seller_form.id, 
-            tmp_seller_form.profile.user_type=3, 
-            tmp_seller_form.profile.first_name=tmp_seller_form.first_name, 
-            tmp_seller_form.profile.last_name=tmp_seller_form.last_name,
-            tmp_seller_form.profile.telephone=tmp_seller_form.telephone,
-            tmp_seller_form.profile.email_address=tmp_seller_form.email
-            
-            #update seller user profile
-            tmp_buyer_form.profile.user_id = user_buyer_form.id, 
-            tmp_buyer_form.profile.user_type=3, 
-            tmp_buyer_form.profile.first_name=tmp_buyer_form.first_name, 
-            tmp_buyer_form.profile.last_name=tmp_buyer_form.last_name,
-            tmp_buyer_form.profile.telephone=tmp_buyer_form.telephone,
-            tmp_buyer_form.profile.email_address=tmp_buyer_form.email
-
-            tmp_seller_form.save()
+            tmp_buyer_form.user_id = tmp_user_buyer_form.id
             tmp_buyer_form.save()
-           
+            tmp_user_buyer_form.save()
+
+            #update seller user profile
+            tmp_user_buyer = User.objects.get(id=tmp_user_buyer_form.id)
+            tmp_user_buyer.profile.user_type = 3
 
             print("Forms successfully saved to database")
             return HttpResponseRedirect('/') # Redirect after POST
         else:
             print("Form/s not valid")
-            print(seller_form.errors)
-            print(buyer_form.errors)
+            print(seller_profile_form.errors)
+            print(buyer_profile_form.errors)
             print(property_form.errors)
 
     else:
         print("Get")
-        seller_form = SellerForm() # Initialise empty forms
+        seller_form = SellerForm()
+        seller_profile_form = ProfileForm(prefix='seller_profile') # Initialise empty forms
         user_seller_form = UserCreationForm(prefix='user_seller')
+
         buyer_form = BuyerForm()
+        buyer_profile_form = ProfileForm(prefix='buyer_profile')
         user_buyer_form = UserCreationForm(prefix='user_buyer')
+
         property_form = PropertyForm()
 
     return render(
@@ -332,10 +336,15 @@ def new(request):
         context_instance = RequestContext(request,
         {
             'title':'New Sale',
+
             'seller_form':seller_form,
+            'seller_profile_form':seller_profile_form,
             'user_seller_form':user_seller_form,
+
             'buyer_form':buyer_form,
+            'buyer_profile_form':buyer_profile_form,
             'user_buyer_form':user_buyer_form,
+
             'property_form':property_form,
             'year':datetime.now().year,
         })
