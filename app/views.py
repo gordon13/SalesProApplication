@@ -1,4 +1,4 @@
-﻿"""
+"""
 Definition of views.
 """
 
@@ -392,7 +392,7 @@ def milestones(request):
         'app/milestones.html',
         context_instance = RequestContext(request,
         {
-            'title':'Milestones',
+            'title':'Milestones ',
             'property':property_obj,
             'milestones':milestones,
             'percentage':percentage,
