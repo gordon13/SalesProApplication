@@ -2,8 +2,9 @@
 
 {% block content %}
 <div class="row">
-    <div id="col-style" class="col-sm-4">
+    <div id="col-style" class="col-sm-5">
         <h1>Reminders</h1>
+        <hr>
         {% if reminders %}
             {% for reminder in reminders %}
                 {% if reminder.date1 %}
@@ -29,6 +30,7 @@
     <div class="col-sm-7">
         <div id="col-style-inner" class="col-sm-11">
             <h1>Properties</h1>
+            <hr>
                 {% if properties %}
                     {% for property in properties %}
                         <li><a href="{% url 'property' property.id %}">Ref: {{property.id}} - {{property.address_line_1}}, {{property.address_line_2}}, {{property.address_line_3}}, {{property.postcode}}</a></li>
@@ -37,7 +39,7 @@
                     No properties for this agent
                 {% endif %}
         </div>
-        <a a href="{% url 'exchanges' %}"><div id="col-style-inner" class="col-sm-11"><h1>Exchanges</h1></div></a>        
+        <a a href="{% url 'exchanges' %}"><div id="col-style-inner" class="col-sm-11"><h1>Exchanges</h1><hr></div></a>        
     </div>
 </div>
 {% endblock %}
