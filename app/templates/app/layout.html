@@ -10,13 +10,13 @@
         <link rel="stylesheet" type="text/css" href="{% static 'app/content/simple-sidebar.css' %}" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-        <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
-        <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
-        <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
-        <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
-        <script src="{% static 'app/scripts/respond.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/bootstrap.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/respond.js' %}"></script>
     </head>
 
     <body>  
@@ -93,7 +93,7 @@
                             for (res in properties) {
                                 var property_str = data.result.properties[0][res].agent +" - "+ data.result.properties[0][res].address_line_1+", "+data.result.properties[0][res].address_line_2;
 
-                                dropdown_list += "<a href='property/"+data.result.properties[0][res].id+"' alt='"+property_str+"' title='"+property_str+"'>"+property_str+"</a><br>"
+                                dropdown_list += "<a href='property/"+data.result.properties[0][res].id+"' title='"+property_str+"'>"+property_str+"</a><br>"
                             }
                         } else {
                             dropdown_list += "<h3>No matching result</h3>"

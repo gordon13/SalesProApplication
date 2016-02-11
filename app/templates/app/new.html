@@ -3,42 +3,81 @@
 {% block content %}
 {{ property_form.media }}
 <div class="row">
-    <div id="col-style" class="col-md-11">     
-        <form method="POST" action="" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="col-md-3 ">
-                <h4 class="form-header">Property</h4>
-                {% for field in property_form %}
-                    {% if forloop.counter < 5 %}
-                        {{field.label}}
-                        {{field}}
-                    {% endif %}
-                {% endfor %}
+    <form method="POST" action="" enctype="multipart/form-data">
+        <div id="col-style" class="col-md-11">     
+            <div class="row">
+                {% csrf_token %}
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Property</h4>
+                    {% for field in property_form %}
+                        {% if forloop.counter < 5 %}
+                            {{field.label}}
+                            {{field}}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Finance</h4>
+                    {% for field in property_form %}
+                        {% if forloop.counter >= 5 %}
+                            {{field.label}}
+                            {{field}}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Seller</h4>
+                    {{seller_form}}
+                    {{seller_profile_form}}
+                    {{user_seller_form}}
+                </div>
+                <div class="col-md-3 ">
+                    <h4 class="form-header">Buyer</h4>
+                    {{buyer_form}}
+                    {{buyer_profile_form}}
+                    {{user_buyer_form}}
+                </div>
             </div>
-            <div class="col-md-3 ">
-                <h4 class="form-header">Finance</h4>
-                {% for field in property_form %}
-                    {% if forloop.counter >= 5 %}
-                        {{field.label}}
-                        {{field}}
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div class="col-md-3 ">
-                <h4 class="form-header">Seller</h4>
-                {{seller_form}}
-                {{seller_profile_form}}
-                {{user_seller_form}}
-            </div>
-            <div class="col-md-3 ">
-                <h4 class="form-header">Buyer</h4>
-                {{buyer_form}}
-                {{buyer_profile_form}}
-                {{user_buyer_form}}
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="form-header">Chain</h4>
+                    Top of chain
+                    <div id="chain-above" class="row">
+                        <input id="add-above" type="button" class="btn btn-info " value="Add above"/>
+                    </div>
+                    <div class="row">
+                        Buyer <br>
+                        Seller
+                    </div>
+                    <div id="chain-below" class="row">
+                        <input id="add-below" type="button" class="btn btn-info " value="Add below"/>
+                    </div>
+                    Bottom of chain
+                </div>
             </div>
             <input type="submit" class="btn btn-info " value="Add sale"/>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
+<script type="text/javascript">
+    $("#add-above").on("click", function () {
+        $(this).before("<div class='row'>" +
+                        "<label>First name <input type='text'></input></label>"+
+                        "<label>Last name <input type='text'></input></label>"+
+                        "<a href='javascript:void(0)' class='delete'>Delete</a></div>");
+    });
+
+    $("#add-below").on("click", function () {
+        $(this).after("<div class='row'>" +
+                        "<label>First name <input type='text'></input></label>"+
+                        "<label>Last name <input type='text'></input></label>"+
+                        "<a href='javascript:void(0)' class='delete'>Delete</a></div>")
+    });
+
+    $("#chain-above, #chain-below").on("click", ".delete", function () {
+        console.log("click")
+        $(this).parent().remove();
+    });
+</script>
 
 {% endblock %}
