@@ -34,6 +34,9 @@ class Agent(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     progressor = models.ForeignKey(Progressor, blank=True, null=True, default=0)
     
+    def get_profile(self):
+        return ("%s %s"%(self.user.profile.first_name, self.user.profile.last_name, ))
+
     def __str__(self):
         return ("Agent: %s %s"%(self.user.profile.first_name, self.user.profile.last_name))
 
@@ -53,6 +56,16 @@ class Property(models.Model):
     date_agreed = models.DateTimeField(blank=True, null=True)
     date_target = models.DateTimeField(blank=True, null=True)
     required_finance = models.BooleanField(blank=True, default=False)
+
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "agent": self.agent.user.profile.company_name,
+            "address_line_1": self.address_line_1,
+            "address_line_2": self.address_line_2,
+            "address_line_3": self.address_line_3,
+            "postcode": self.postcode
+        }
 
     def __str__(self):
         return ("Property: %s, %s, %s, %s. Agent: %s"%(self.address_line_1, self.address_line_2, self.address_line_3, self.postcode, self.agent,))
