@@ -86,19 +86,14 @@
                         var properties = null,
                             dropdown_list = "";
 
-                        if (data.result.properties) {
+                        if (data.result.properties && data.result.properties[0].length > 0) {
                             properties = data.result.properties[0];
+                            dropdown_list += "<h3>"+properties.length+((properties.length > 1)?" properties":" property")+" found</h3>"
 
-                            if (properties.length > 0) {
-                                dropdown_list += "<h3>"+properties.length+((properties.length > 1)?" properties":" property")+" found</h3>"
+                            for (res in properties) {
+                                var property_str = data.result.properties[0][res].agent +" - "+ data.result.properties[0][res].address_line_1+", "+data.result.properties[0][res].address_line_2;
 
-                                for (res in properties) {
-                                    var property_str = data.result.properties[0][res].agent +" - "+ data.result.properties[0][res].address_line_1+", "+data.result.properties[0][res].address_line_2;
-
-                                    dropdown_list += "<a href='property/"+data.result.properties[0][res].id+"' alt='"+property_str+"' title='"+property_str+"'>"+property_str+"</a><br>"
-                                }
-                            } else {
-                                dropdown_list += "<h3>No matching result</h3>"
+                                dropdown_list += "<a href='property/"+data.result.properties[0][res].id+"' alt='"+property_str+"' title='"+property_str+"'>"+property_str+"</a><br>"
                             }
                         } else {
                             dropdown_list += "<h3>No matching result</h3>"
