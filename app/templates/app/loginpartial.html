@@ -2,10 +2,10 @@
 <form id="logoutForm" action="/logout" method="post" class="navbar-right">
     {% csrf_token %}
 
-	 	<div class="container-fluid">
-	    	<ul class="nav navbar-nav">
+	 	<div>
+	    	<ul id="search" class="nav navbar-nav">
 	        <!--<li><a>Hello {{ user.username }}!</a></li>-->
-	        <li><a style="margin-top: -20px;" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+	        <li><a id="link" style="margin-top: -20px;" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 	    	</ul>
 	    </div>
 

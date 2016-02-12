@@ -8,19 +8,19 @@
         {% if reminders %}
             {% for reminder in reminders %}
                 {% if reminder.date1 %}
-                    <li><a href="javascript:void(0)">{{reminder.date1}} - Ref: {{reminder.property_obj.id}} - {{reminder.message1}}</a></li>
+                    <li><a id="link" href="javascript:void(0)">{{reminder.date1}} - Ref: {{reminder.property_obj.id}} - {{reminder.message1}}</a></li>
                 {% endif %}
                 {% if reminder.date2 %}
-                    <li><a href="javascript:void(0)">{{reminder.date2}} - Ref: {{reminder.property_obj.id}} - {{reminder.message2}}</a></li>
+                    <li><a id="link" href="javascript:void(0)">{{reminder.date2}} - Ref: {{reminder.property_obj.id}} - {{reminder.message2}}</a></li>
                 {% endif %}
                 {% if reminder.date3 %}
-                    <li><a href="javascript:void(0)">{{reminder.date3}} - Ref: {{reminder.property_obj.id}} - {{reminder.message3}}</a></li>
+                    <li><a id="link" href="javascript:void(0)">{{reminder.date3}} - Ref: {{reminder.property_obj.id}} - {{reminder.message3}}</a></li>
                 {% endif %}
                 {% if reminder.date4 %}
-                    <li><a href="javascript:void(0)">{{reminder.date4}} - Ref: {{reminder.property_obj.id}} - {{reminder.message4}}</a></li>
+                    <li><a id="link" href="javascript:void(0)">{{reminder.date4}} - Ref: {{reminder.property_obj.id}} - {{reminder.message4}}</a></li>
                 {% endif %}
                 {% if reminder.date5 %}
-                    <li><a href="javascript:void(0)">{{reminder.date5}} - Ref: {{reminder.property_obj.id}} - {{reminder.message5}}</a></li>
+                    <li><a id="link" href="javascript:void(0)">{{reminder.date5}} - Ref: {{reminder.property_obj.id}} - {{reminder.message5}}</a></li>
                 {% endif %}
             {% endfor %}
         {% else %}
@@ -33,13 +33,13 @@
             <hr>
                 {% if properties %}
                     {% for property in properties %}
-                        <li><a href="{% url 'property' property.id %}">Ref: {{property.id}} - {{property.address_line_1}}, {{property.address_line_2}}, {{property.address_line_3}}, {{property.postcode}}</a></li>
+                        <li><a id="link" href="{% url 'property' property.id %}">Ref: {{property.id}} - {{property.address_line_1}}, {{property.address_line_2}}, {{property.address_line_3}}, {{property.postcode}}</a></li>
                     {% endfor %}
                 {% else %}
                     No properties for this agent
                 {% endif %}
         </div>
-        <a a href="{% url 'exchanges' %}"><div id="col-style-inner" class="col-sm-11"><h1>Exchanges</h1><hr></div></a>        
+        <div id="col-style-inner" class="col-sm-11"><h1>Exchanges</h1><hr></div>     
     </div>
 </div>
 {% endblock %}
