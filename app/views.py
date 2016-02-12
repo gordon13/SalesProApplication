@@ -12,6 +12,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.template import RequestContext
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.core import serializers
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm, ProfileForm
@@ -491,3 +492,28 @@ def update_milestones(request, property_id):
             )
 
         return HttpResponse(html)
+
+
+@login_required
+def search(request, query):
+    if request.method == 'GET':
+        """ 
+        Search
+        """
+        query_str = request.GET['query']
+        print(query_str)
+        #properties_obj = Property.objects.filter(agent__user__profile__first_name=query_str)
+        if query_str is not None and query_str is not "":
+            result = {}
+            properties_obj = Property.objects.filter(Q(address_line_1__icontains=query_str) | Q(address_line_2__icontains=query_str) | Q(address_line_3__icontains=query_str) | Q(postcode__icontains=query_str) )
+            
+            if properties_obj:
+                result['properties']=[]
+                result['properties'].append([ obj.as_dict() for obj in properties_obj ])
+
+        return HttpResponse(
+            json.dumps({"result": result}),
+            content_type="application/json"
+        )
+
+        #return HttpResponse(html)

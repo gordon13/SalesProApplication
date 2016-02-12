@@ -10,45 +10,105 @@
         <link rel="stylesheet" type="text/css" href="{% static 'app/content/simple-sidebar.css' %}" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-        <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
-        <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
-        <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
-        <script src="{% static 'app/scripts/respond.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+        <script type="text/javascript" src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/bootstrap.js' %}"></script>
+        <script type="text/javascript" src="{% static 'app/scripts/respond.js' %}"></script>
     </head>
 
     <body>  
         <nav class="navbar navbar-default">
           <div class="container-fluid">
             <div class="navbar-header">
-              <img id="logo" style="display:inline-block" src="{% static 'app/images/sales-pro.png' %}" />
+                <div class="col-lg-6">
+                <img id="logo" style="display:inline-block" src="{% static 'app/images/sales-pro.png' %}" />
+                </div>
+                <div class="col-lg-6">
+                    <form class="navbar-form navbar-left search-form" role="search" style="overflow: visible; height: 50px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-input" placeholder="Search">
+                        </div>
+                        <div class="list-container" style="display: none; background-color: #1972B0; z-index: 100; position: relative; border: solid; padding: 5px;"></div>
+                    </form>
+                </div>
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'home' %}">Dashboard</a></li>
                 <li><a href="{% url 'user_profile' %}">User profile</a></li>
                 {% if user.profile.user_type == 0 %}<li><a href="{% url 'add_agent' %}">Add Agent</a></li>{% endif %}
-                {% if user.profile.user_type == 0 or user.profile.user_type == 1  %}<li><a href="{% url 'agents' %}">Agents</a></li>{% endif %}
-                {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'reminders' %}">Add Reminders</a></li>{% endif %}
+                {% if user.profile.user_type == 0 %}<li><a href="#">Add Progressor</a></li>{% endif %}
+                {% if user.profile.user_type == 0 %}<li><a href="{% url 'agents' %}">Agents</a></li>{% endif %}
+                {% if user.profile.user_type == 0 %}<li><a href="#">Progressors</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 or user.profile.user_type == 2 %}<li><a href="{% url 'new' %}">New Sale</a></li>{% endif %}
-                {% if user.profile.user_type == 0 or user.profile.user_type == 1 %}<li><a href="{% url 'pipeline' %}">Pipeline</a></li>{% endif %}
                 {% if user.profile.user_type == 3 %}<li><a href="{% url 'milestones' %}">Milestones</a></li>{% endif %}
+                {% csrf_token %}
                 <li>{% include 'app/loginpartial.html' %}</li>
+                <li>{% if user.profile.user_type %} {{user.username}}({{user.profile.user_type_verbose}}) {% else %} None {% endif %}</li>
+
             </ul>
           </div>
         </nav>
         <div id="page-content-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <!--<h1>{{ title }}</h1><br />
-                    <h1>Current user: {% if user.profile.user_type %} {{user.username}}({{user.profile.user_type_verbose}}) {% else %} None {% endif %}</h1><br />-->
                     {% block content %} 
                     {% endblock %}
                 </div>
 
         </div>
     </div>
+    <script type="text/javascript">
+    var $dropdown_list_container = $(".search-form .list-container"),
+        timer = null;
+
+    $dropdown_list_container.add("div").on( "focusout", function () {
+        //$dropdown_list_container.hide();
+    });
+
+    $(".navbar .search-form .search-input").on("input", function () {
+        var value = this.value;
+
+        $dropdown_list_container.empty();
+        clearTimeout(timer);
+
+        timer = setTimeout(function () {
+            var value_corrected = value.replace(/\s/g, "+");
+
+            if (value_corrected != "" && value_corrected != null) {
+                $dropdown_list_container.show();
+                $.ajax({
+                    url:"search/?query="+value_corrected,
+                    dataType: "json",
+                    success: function (data) {
+                        var properties = null,
+                            dropdown_list = "";
+
+                        if (data.result.properties && data.result.properties[0].length > 0) {
+                            properties = data.result.properties[0];
+                            dropdown_list += "<h3>"+properties.length+((properties.length > 1)?" properties":" property")+" found</h3>"
+
+                            for (res in properties) {
+                                var property_str = data.result.properties[0][res].agent +" - "+ data.result.properties[0][res].address_line_1+", "+data.result.properties[0][res].address_line_2;
+
+                                dropdown_list += "<a href='property/"+data.result.properties[0][res].id+"' title='"+property_str+"'>"+property_str+"</a><br>"
+                            }
+                        } else {
+                            dropdown_list += "<h3>No matching result</h3>"
+                        }
+
+                        $dropdown_list_container.append(dropdown_list);
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+            }
+        }, 300);
+    });
+    </script>
     </body>
 </html>
 

@@ -27,7 +27,7 @@ class ProfileForm(forms.ModelForm):
         exclude = ['id', 'user', 'user_type']
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
@@ -39,7 +39,7 @@ class SellerForm(forms.ModelForm):
         exclude = ['id', 'property_obj', 'user']
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
@@ -51,7 +51,7 @@ class BuyerForm(forms.ModelForm):
         exclude = ['id', 'property_obj', 'user']
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
@@ -63,7 +63,7 @@ class ProgressorForm(forms.ModelForm):
         exclude = ['id']
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
@@ -75,7 +75,7 @@ class AgentForm(forms.ModelForm):
         exclude = ['id']
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
@@ -90,7 +90,7 @@ class PropertyForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             if self.fields[field].__class__.__name__ == "DateTimeField":
                 self.fields[field].widget = DateTimeWidget( usel10n = True)
@@ -110,7 +110,7 @@ class MilestoneForm(forms.ModelForm):
     
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             if self.fields[field].__class__.__name__ == "DateTimeField":
                 self.fields[field].widget = DateTimeWidget( usel10n = True)

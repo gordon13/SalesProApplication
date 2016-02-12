@@ -31,9 +31,15 @@ urlpatterns = patterns('',
     url(r'^pipeline$', 'app.views.pipeline', name='pipeline'),
     url(r'^report$', 'app.views.report', name='report'),
 
+    ## API URLs
     # used by ajax
     url(r'^get_properties/(?P<agent_id>[0-9]+)/$', 'app.views.get_properties', name='get_properties'),
     url(r'^update_milestones/(?P<property_id>[0-9]+)/$', 'app.views.update_milestones', name='update_milestones'),
+
+    #search 
+    #url(r'^search/(?P<query>[a-z0-9\+]+)$', 'app.views.search', name='search'),
+    #url(r'^search/(?P<query>[\w]+)/$', 'app.views.search',),
+    url(r'^search/(?P<query>.*)$', 'app.views.search',),
 
     # Used to redirect the user to their respective page
     url(r'^$', 'app.views.user_redirect', name='user_redirect'),

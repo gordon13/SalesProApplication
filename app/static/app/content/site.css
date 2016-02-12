@@ -17,6 +17,7 @@ a:hover {
 .navbar-default {
     -webkit-box-shadow: none !important;
     margin: 25px 0 0 90px;
+    background-color: rgba(248, 248, 248, 0);
 }
 .navbar-default .navbar-nav>li>a {
     color: #F8F8F8 !important;

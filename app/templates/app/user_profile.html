@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="row">
-    <div id="col-style" class="col-sm-4">
+    <div id="col-style" class="col-sm-12">
         <h1>Your details</h1>
         <form method="POST" action="{% url 'user_profile' %}">
             {% csrf_token %}
