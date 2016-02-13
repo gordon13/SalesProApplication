@@ -42,14 +42,20 @@
                 <div class="col-md-12">
                     <h4 class="form-header">Chain</h4>
                     Top of chain
-                    <div id="chain-above" class="row">
+                    <div id="chain-above" class="col-md-12">
                         <input id="add-above" type="button" class="btn btn-info " value="Add above"/>
                     </div>
                     <div class="row">
-                        Buyer <br>
-                        Seller
+                        <div class="col-md-12 chain-input" data-index=''>
+                            Buyer<label>First name <input class='form-control' type='text'/></label>
+                            <label>Last name <input class='form-control' type='text/'></label>
+                        </div>
+                        <div class="col-md-12 chain-input" data-index=''>
+                            Seller<label>First name <input class='form-control' type='text'></input></label>
+                            <label>Last name <input class='form-control' type='text'></input></label>
+                        </div>
                     </div>
-                    <div id="chain-below" class="row">
+                    <div id="chain-below" class="col-md-12">
                         <input id="add-below" type="button" class="btn btn-info " value="Add below"/>
                     </div>
                     Bottom of chain
@@ -61,22 +67,43 @@
 </div>
 <script type="text/javascript">
     $("#add-above").on("click", function () {
-        $(this).before("<div class='row'>" +
-                        "<label>First name <input type='text'></input></label>"+
-                        "<label>Last name <input type='text'></input></label>"+
+        next_index = 0;
+        $(this).before("<div class='row chain-input' data-index=''>" +
+                        "<label>First name <input class='form-control' type='text'/></label>"+
+                        "<label>Last name <input class='form-control' type='text'/></label>"+
                         "<a href='javascript:void(0)' class='delete'>Delete</a></div>");
+        $(this).parent().parent().find(".chain-input").each(function () {
+            $(this).attr("data-index", next_index);
+            next_index += 1;
+        });
+        
+
+        
     });
 
     $("#add-below").on("click", function () {
-        $(this).after("<div class='row'>" +
-                        "<label>First name <input type='text'></input></label>"+
-                        "<label>Last name <input type='text'></input></label>"+
-                        "<a href='javascript:void(0)' class='delete'>Delete</a></div>")
+        next_index = 0;
+        $(this).after("<div class='row chain-input' data-index=''>" +
+                        "<label>First name <input class='form-control' type='text'/></label>"+
+                        "<label>Last name <input class='form-control' type='text'/></label>"+
+                        "<a href='javascript:void(0)' class='delete'>Delete</a></div>");
+        $(this).parent().parent().find(".chain-input").each(function () {
+            $(this).attr("data-index", next_index);
+            next_index += 1;
+        });
+        
     });
 
     $("#chain-above, #chain-below").on("click", ".delete", function () {
-        console.log("click")
+        next_index = 0;
+        $panel = $(this).parent().parent().parent();
         $(this).parent().remove();
+        console.log($panel)
+        $panel.find(".chain-input").each(function () {
+            var $child = $(this);
+            $child.attr("data-index", next_index);
+            next_index += 1;
+        });
     });
 </script>
 
