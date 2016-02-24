@@ -4,11 +4,11 @@
 {{ property_form.media }}
 <div class="row">
     <form method="POST" action="" enctype="multipart/form-data">
-        <div id="col-style" class="col-md-11">     
+        <div id="col-style-solo" class="col-md-11">     
             <div class="row">
                 {% csrf_token %}
-                <div class="col-md-3 ">
-                    <h4 class="form-header">Property</h4>
+                <div id="form-layout" class="col-md-2">
+                    <h4 class="form-header">Property</h4><hr>
                     {% for field in property_form %}
                         {% if forloop.counter < 5 %}
                             {{field.label}}
@@ -16,8 +16,8 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                <div class="col-md-3 ">
-                    <h4 class="form-header">Finance</h4>
+                <div id="form-layout" class="col-md-2">
+                    <h4 class="form-header">Finance</h4><hr>
                     {% for field in property_form %}
                         {% if forloop.counter >= 5 %}
                             {{field.label}}
@@ -25,33 +25,33 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                <div class="col-md-3 ">
-                    <h4 class="form-header">Seller</h4>
+                <div id="form-layout" class="col-md-2">
+                    <h4 class="form-header">Seller</h4><hr>
                     {{seller_form}}
                     {{seller_profile_form}}
                     {{user_seller_form}}
                 </div>
-                <div class="col-md-3 ">
-                    <h4 class="form-header">Buyer</h4>
+                <div id="form-layout" class="col-md-2">
+                    <h4 class="form-header">Buyer</h4><hr>
                     {{buyer_form}}
                     {{buyer_profile_form}}
                     {{user_buyer_form}}
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h4 class="form-header">Chain</h4>
+                <div id="form-layout" class="col-md-2">
+                    <h4 class="form-header">Chain</h4><hr>
                     Top of chain
                     <div id="chain-above" class="col-md-12">
                         <input id="add-above" type="button" class="btn btn-info " value="Add above"/>
                     </div>
                     <div class="row">
                         <div class="col-md-12 chain-input" data-index=''>
-                            Buyer<label>First name <input class='form-control' type='text'/></label>
+                            <h4 class="form-header">Buyer</h4>
+                            <label>First name <input class='form-control' type='text'/></label>
                             <label>Last name <input class='form-control' type='text/'></label>
                         </div>
                         <div class="col-md-12 chain-input" data-index=''>
-                            Seller<label>First name <input class='form-control' type='text'></input></label>
+                            <h4 class="form-header">Seller</h4>
+                            <label>First name <input class='form-control' type='text'></input></label>
                             <label>Last name <input class='form-control' type='text'></input></label>
                         </div>
                     </div>

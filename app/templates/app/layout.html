@@ -34,9 +34,9 @@
                 <li><a id="link" href="{% url 'home' %}">Dashboard</a></li>
                 <li><a id="link"href="{% url 'user_profile' %}">User profile</a></li>
                 {% if user.profile.user_type == 0 %}<li><a id="link" href="{% url 'add_agent' %}">Add Agent</a></li>{% endif %}
-                {% if user.profile.user_type == 0 %}<li><a id="link" href="#">Add Progressor</a></li>{% endif %}
+                {% if user.profile.user_type == 0 %}<li><a id="link" href="{% url 'add_progressor' %}">Add Progressor</a></li>{% endif %}
                 {% if user.profile.user_type == 0 %}<li><a id="link" href="{% url 'agents' %}">Agents</a></li>{% endif %}
-                {% if user.profile.user_type == 0 %}<li><a id="link" href="#">Progressors</a></li>{% endif %}
+                {% if user.profile.user_type == 0 %}<li><a id="link" href="{% url 'progressors' %}">Progressors</a></li>{% endif %}
                 {% if user.profile.user_type == 0 or user.profile.user_type == 1 or user.profile.user_type == 2 %}<li><a id="link" href="{% url 'new' %}">New Sale</a></li>{% endif %}
                 {% if user.profile.user_type == 3 %}<li><a id="link" href="{% url 'milestones' %}">Milestones</a></li>{% endif %}
                 {% csrf_token %}

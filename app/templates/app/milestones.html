@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="row">
-    <div id="col-style" class="col-sm-4">
-        <h2>Milestones</h2>
+    <div id="col-style-left" class="col-sm-5">
+        <h2>Milestones</h2><hr>
         <ul>
             {% if milestones %}
                 <li>Milestone 6 - {% if milestones.milestone1 == True %}Complete{% else %}Pending{% endif %}</li>
@@ -16,10 +16,10 @@
             {% endif %}
         </ul>
     </div>
-    <div class="col-sm-6">
+    <div id="col-style-right" class="col-sm-6">
         <span style="font-size:35px">Competion progress: {{percentage}}%</span>
         
-            <h1>Property</h1>
+            <h1>Property</h1><hr>
             <ul>
                 {% if property %}
                     <li>Preoperty reference: {{property.id}}</li>
@@ -32,7 +32,7 @@
                 {% endif %}
             </ul>
             
-            <h1>Details</h1>
+            <h1>Details</h1><hr>
             <ul>
                 {% if property %}
                     <li>Agency: {{property.agent.company_name}}</li>

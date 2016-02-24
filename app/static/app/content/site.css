@@ -3,6 +3,8 @@
     font-size:17px !important;
     background: #1972B0 !important;
     color: #F8F8F8 !important;
+    position: absolute;
+    width:100%;
 }
 input {
     
@@ -81,22 +83,49 @@ textarea {
     -webkit-box-shadow: none;
     border: none;
 }
-#col-style {
+#col-style-left {
     margin-bottom: 35px;
-
+    border-radius: 10px;
+    margin-left:55px;
+    background-color: #1972B0;
+    border: 4px solid #F8F8F8;
+    height: 700px;
+    overflow: scroll;
+}
+#col-style-right {
+    margin-bottom: 35px;
+    border-radius: 10px;
+    margin-left:55px;
+    background-color: #1972B0;
+    border: 4px solid #F8F8F8;
+    height: 700px;
+    overflow: scroll;
+    width:46%;
+}
+#col-style-inner {
+    height: 333px;
+    background: #F8F8F8;
+    margin-left: 55px;
+    margin-bottom: 35px;
+    overflow: scroll;
     border-radius: 10px;
     background-color: #1972B0;
     border: 4px solid #F8F8F8;
 }
-#col-style-inner {
-    height: 332px;
-    background: #F8F8F8;
-    margin-left: 15px;
+
+#col-style-solo {
     margin-bottom: 35px;
-    overflow: hidden;
     border-radius: 10px;
+    margin-left:55px;
     background-color: #1972B0;
     border: 4px solid #F8F8F8;
+    height: 700px;
+    overflow: scroll;
+    width:90%;
+}
+#form-layout {
+    width: 337px;
+    max-width: 100%;
 }
 
 .form-header {

@@ -1,0 +1,18 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="row">
+    <div id="col-style-solo" class="col-sm-11">
+        <h1>List of Progressors</h1><hr>
+        <section id="progressors">
+        {% for progressor in progressors %}
+            <ul>
+                <a href="javascript:void(0)" class="progressor-link" data-progressor-id="{{progressor.id}}">{{progressor.name}}</a>
+            </ul>
+        {% endfor %}
+        </section>
+    </div>
+</div>
+
+{% endblock %}
+

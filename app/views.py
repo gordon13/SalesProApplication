@@ -16,7 +16,7 @@ from django.core import serializers
 from datetime import datetime
 
 from .forms import SellerForm, BuyerForm, PropertyForm, AgentForm, ProgressorForm, MilestoneForm, ProfileForm
-from .models import Agent, Property, Milestone, Buyer, Seller, UserProfile
+from .models import Agent, Property, Milestone, Buyer, Seller, UserProfile, Progressor
 
 # Entry point of application. Redirects user to appropriate page
 def user_redirect(request):
@@ -94,7 +94,7 @@ def user_profile(request):
 @login_required
 @user_passes_test(lambda u: u.profile.user_type == 0, login_url='/login')
 def add_progressor(request):
-    """Renders the new page."""
+    """Renders the new progressor."""
     assert isinstance(request, HttpRequest)
    
     if request.method == 'POST': # If the form has been submitted...
@@ -105,7 +105,7 @@ def add_progressor(request):
         if progressor_form.is_valid(): # All validation rules pass
             print("Form is valid")
             progressor_form.save()
-            return HttpResponseRedirect('/agents') # Redirect after POST
+            return HttpResponseRedirect('/progressors') # Redirect after POST
         else:
             print("Form/s not valid")
             print(progressor_form.errors)
@@ -119,6 +119,42 @@ def add_progressor(request):
         context_instance = RequestContext(request,
         {
             'progressor_form':progressor_form,
+        })
+    )
+
+@login_required
+@user_passes_test(lambda u: u.profile.user_type == 0, login_url='/login')
+def progressor_details(request, progressor_id):
+    """Renders the progressors page."""
+    assert isinstance(request, HttpRequest)
+    progressor = get_object_or_404(Progressor, pk=progressor_id)
+    pipeline = Property.objects.filter(progressor=progressor.id)
+
+    return render(
+        request,
+        'app/progressor_details.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Progressors Details',
+            'pipeline':pipeline,
+            'year':datetime.now().year,
+        })
+    )
+
+@login_required
+@user_passes_test(lambda u: u.profile.user_type == 0, login_url='/login')
+def progressors(request):
+    """Renders the progressors page."""
+    assert isinstance(request, HttpRequest)
+    progressors = Progressor.objects.all()
+
+    return render(
+        request,
+        'app/progressors.html',
+        context_instance = RequestContext(request,
+        {
+            'title':'Progressors',
+            'progressors': progressors
         })
     )
 
@@ -154,7 +190,7 @@ def add_agent(request):
     )
 
 @login_required
-@user_passes_test(lambda u: u.profile.user_type == 1, login_url='/login')
+@user_passes_test(lambda u: u.profile.user_type == 0, login_url='/login')
 def agent_details(request, agent_id):
     """Renders the agents page."""
     assert isinstance(request, HttpRequest)
